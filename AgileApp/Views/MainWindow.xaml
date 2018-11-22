@@ -8,7 +8,7 @@
         Title="MainWindow" Height="450" Width="1200">
 
     <!--add data context-->
-    
+
     <Border Padding="10">
 
         <StackPanel>
@@ -50,7 +50,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Button Command="{Binding OpenAddWindow}" Content="Add" Grid.Column="0" Margin="10 10 10 10"/>
-                                <Button Content="Info" Grid.Column="1" Margin="10 10 10 10"/>
+                                <Button Content="Info" Grid.Column="1" Margin="1.8,86,18.2,-65.8"/>
                             </Grid>
                         </StackPanel>
                     </Border>
@@ -75,7 +75,7 @@
                 <StackPanel Grid.Column="4" Margin="0 0 0 0">
                     <TextBlock Text="Architect" HorizontalAlignment="Center" FontSize="15"/>
                 </StackPanel>
-                
+
                 <!--Dev team-->
                 <StackPanel Grid.Column="5" Margin="0 0 0 0">
                     <TextBlock Text="Dev team" HorizontalAlignment="Center" FontSize="15"/>

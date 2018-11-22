@@ -21,7 +21,7 @@ namespace AgileApp.ViewModels
 				RaisePropertyChangedEvent(nameof(UserName1));
 			}
 		}
-
+		//adfsfdsfsdf
 
 
 		public ICommand OpenAddWindow => new DelegateCommand(() =>
