@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace AgileApp.ViewModels
 {
-	class Presenter : ObservableObject
+	public class Presenter : ObservableObject
 	{
 		private string _userName1;
 
@@ -18,17 +18,23 @@ namespace AgileApp.ViewModels
 			set
 			{
 				_userName1 = value;
-				RaisePropertyChangedEvent(nameof(UserName1));
+				RaisePropertyChangedEvent("UserName1");
 			}
 		}
 
+		//public ICommand OpenAddWindow => new DelegateCommand(() =>
+		//{
+		//	UserName1 = "eeeee";
+		//});
 
-
-		public ICommand OpenAddWindow => new DelegateCommand(() =>
+		public ICommand SetUserNameText
 		{
-			
-			UserName1 = "eeeee";
+			get { return new DelegateCommand(SetUserName1); }
+		}
 
-		});
+		private void SetUserName1()
+		{
+			UserName1 = "test";
+		}
 	}
 }
