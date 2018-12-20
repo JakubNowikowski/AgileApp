@@ -7,82 +7,83 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="1200">
 
-    <Window.DataContext>
-        <local:Presenter/>
-    </Window.DataContext>
-    
-    <Border Padding="10">
+  <!--<Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>-->
 
-        <StackPanel>
-            <Grid>
+  <Border Padding="10">
+
+    <StackPanel>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="1.5*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!--borders-->
+
+        <Border Grid.Column="1" BorderBrush="Black" 
+        BorderThickness="1,0,0,0" Background="{x:Null}" />
+        <Border Grid.Column="2" BorderBrush="Black" 
+        BorderThickness="1,0,0,0" Background="{x:Null}" />
+        <Border Grid.Column="3" BorderBrush="Black" 
+        BorderThickness="1,0,0,0" Background="{x:Null}" />
+        <Border Grid.Column="4" BorderBrush="Black" 
+        BorderThickness="1,0,0,0" Background="{x:Null}" />
+        <Border Grid.Column="5" BorderBrush="Black" 
+        BorderThickness="1,0,0,0" Background="{x:Null}" />
+
+        <!--All members-->
+        <StackPanel Grid.Column="0" Margin="0 0 0 0" Background="AntiqueWhite">
+          <TextBlock Text="Team members" HorizontalAlignment="Center" FontSize="20"/>
+
+          <!--Jakub-->
+          <Border Padding="20">
+            <StackPanel Background="DarkSeaGreen">
+              <TextBlock Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
+              <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1.5*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="39*"/>
+                  <ColumnDefinition Width="19*"/>
+                  <ColumnDefinition Width="58*"/>
                 </Grid.ColumnDefinitions>
 
-                <!--borders-->
-
-                <Border Grid.Column="1" BorderBrush="Black" 
-        BorderThickness="1,0,0,0" Background="{x:Null}" />
-                <Border Grid.Column="2" BorderBrush="Black" 
-        BorderThickness="1,0,0,0" Background="{x:Null}" />
-                <Border Grid.Column="3" BorderBrush="Black" 
-        BorderThickness="1,0,0,0" Background="{x:Null}" />
-                <Border Grid.Column="4" BorderBrush="Black" 
-        BorderThickness="1,0,0,0" Background="{x:Null}" />
-                <Border Grid.Column="5" BorderBrush="Black" 
-        BorderThickness="1,0,0,0" Background="{x:Null}" />
-
-                <!--All members-->
-                <StackPanel Grid.Column="0" Margin="0 0 0 0" Background="AntiqueWhite">
-                    <TextBlock Text="Team members" HorizontalAlignment="Center" FontSize="20"/>
-
-                    <!--Jakub-->
-                    <Border Padding="20">
-                        <StackPanel Background="DarkSeaGreen">
-                            <TextBlock Text="{Binding UserName1, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <Button Command="{Binding SetUserNameText}" Content="Add" Grid.Column="0" Margin="10 10 10 10"/>
-                                <Button Content="Info" Grid.Column="1" Margin="10 10 10 10"/>
-                            </Grid>
-                        </StackPanel>
-                    </Border>
-                </StackPanel>
-
-                <!--Product owner-->
-                <StackPanel Grid.Column="1" Margin="0 0 0 0">
-                    <TextBlock Text="Product owner" HorizontalAlignment="Center" FontSize="15"/>
-                </StackPanel>
-
-                <!--Project manager-->
-                <StackPanel Grid.Column="2" Margin="0 0 0 0">
-                    <TextBlock Text="Project manager" HorizontalAlignment="Center" FontSize="15"/>
-                </StackPanel>
-
-                <!--Scrum master-->
-                <StackPanel Grid.Column="3" Margin="0 0 0 0">
-                    <TextBlock Text="Scrum master" HorizontalAlignment="Center" FontSize="15"/>
-                </StackPanel>
-
-                <!--Architect-->
-                <StackPanel Grid.Column="4" Margin="0 0 0 0">
-                    <TextBlock Text="Architect" HorizontalAlignment="Center" FontSize="15"/>
-                </StackPanel>
-                
-                <!--Dev team-->
-                <StackPanel Grid.Column="5" Margin="0 0 0 0">
-                    <TextBlock Text="Dev team" HorizontalAlignment="Center" FontSize="15"/>
-                </StackPanel>
-            </Grid>
+                <Button Command="{Binding DisplayMessageCommand}" Content="Add" Grid.Column="0" Margin="10,10,10.2,10.2" Grid.ColumnSpan="2"/>
+                <Button Command="{Binding DisplayUserName}" Content="Info" Grid.Column="2" Margin="9.8,10,10.2,10.2"/>
+              </Grid>
+            </StackPanel>
+          </Border>
         </StackPanel>
-    </Border>
+
+        <!--Product owner-->
+        <StackPanel Grid.Column="1" Margin="0 0 0 0">
+          <TextBlock Text="Product owner" HorizontalAlignment="Center" FontSize="15"/>
+        </StackPanel>
+
+        <!--Project manager-->
+        <StackPanel Grid.Column="2" Margin="0 0 0 0">
+          <TextBlock Text="Project manager" HorizontalAlignment="Center" FontSize="15"/>
+        </StackPanel>
+
+        <!--Scrum master-->
+        <StackPanel Grid.Column="3" Margin="0 0 0 0">
+          <TextBlock Text="Scrum master" HorizontalAlignment="Center" FontSize="15"/>
+        </StackPanel>
+
+        <!--Architect-->
+        <StackPanel Grid.Column="4" Margin="0 0 0 0">
+          <TextBlock Text="Architect" HorizontalAlignment="Center" FontSize="15"/>
+        </StackPanel>
+
+        <!--Dev team-->
+        <StackPanel Grid.Column="5" Margin="0 0 0 0">
+          <TextBlock Text="Dev team" HorizontalAlignment="Center" FontSize="15"/>
+        </StackPanel>
+      </Grid>
+    </StackPanel>
+  </Border>
 </Window>

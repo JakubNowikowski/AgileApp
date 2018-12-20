@@ -1,0 +1,21 @@
+﻿<Window x:Class="AgileApp.Views.AddWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+      
+      Title="AddWindow" Height="350" Width="525" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+    <Border Padding="10">
+
+        <StackPanel Margin="50,50">
+            <RadioButton Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=rbtnProductOwner, Path=Content}" Name="rbtnProductOwner" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Product owner"/>
+            <RadioButton Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=rbtnProjectManager, Path=Content}" VerticalAlignment="Center" HorizontalAlignment="Left" Name="rbtnProjectManager" Content="Project manager"/>
+            <TextBox Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="100 10"/>
+            <TextBox Text="{Binding Test, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Command="{Binding OkCommand}" Content="OK" Margin="100 10 100 0" Height="50"/>
+            <Button Command="{Binding SetRole}" Content="Set" Margin="100 10 100 10" Height="50"/>
+        </StackPanel>
+    </Border>
+</Window>

@@ -5,26 +5,79 @@ namespace AgileApp.ViewModels
 {
 	public class DelegateCommand : ICommand
 	{
-		private readonly Action _action;
+		 private readonly Action<object> action;
+        private readonly Predicate<Object> predicate;
 
-		public DelegateCommand(Action action)
-		{
-			_action = action;
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ActionCommand"/> class.
+        /// </summary>
+        /// <param name="action">The action to invoke on command.</param>
+        public DelegateCommand(Action<Object> action) : this(action, null)
+        {
+        }
 
-		public void Execute(object parameter)
-		{
-			
-			_action();
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ActionCommand"/> class.
+        /// </summary>
+        /// <param name="action">The action to invoke on command.</param>
+        /// <param name="predicate">The predicate that determines if the action can be invoked.</param>
+        public DelegateCommand(Action<Object> action, Predicate<Object> predicate)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action), @"You must specify an Action<T>.");
+            }
 
-		public bool CanExecute(object parameter)
-		{
-			return true;
-		}
+            this.action = action;
+            this.predicate = predicate;
+        }
 
-#pragma warning disable 67
-		public event EventHandler CanExecuteChanged { add { } remove { } }
-#pragma warning restore 67
+        /// <summary>
+        /// Occurs when the <see cref="System.Windows.Input.CommandManager"/> detects conditions that might change the ability of a command to execute.
+        /// </summary>
+        public event EventHandler CanExecuteChanged
+        {
+            add
+            {
+                CommandManager.RequerySuggested += value;
+            }
+            remove
+            {
+                CommandManager.RequerySuggested -= value;
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the command can execute.
+        /// </summary>
+        /// <param name="parameter">A custom parameter object.</param>
+        /// <returns>
+        ///     Returns true if the command can execute, otherwise returns false.
+        /// </returns>
+        public bool CanExecute(object parameter)
+        {
+            if (this.predicate == null)
+            {
+                return true;
+            }
+            return this.predicate(parameter);
+        }
+
+        /// <summary>
+        /// Executes the command.
+        /// </summary>
+        public void Execute()
+        {
+            Execute(null);
+        }
+
+        /// <summary>
+        /// Executes the command.
+        /// </summary>
+        /// <param name="parameter">A custom parameter object.</param>
+        public void Execute(object parameter)
+        {
+            this.action(parameter);
+        }
 	}
 }
