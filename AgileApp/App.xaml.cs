@@ -11,16 +11,5 @@ namespace AgileApp
 	/// </summary>
 	public partial class App : Application
 	{
-		protected override void OnStartup(StartupEventArgs e)
-		{
-			IDialogService dialogService = new DialogService(MainWindow);
-
-			dialogService.Register<AddWindowViewModel, AddWindow>();
-
-			var viewModel = new MainWindowViewModel(dialogService);
-			var view = new MainWindow { DataContext = viewModel };
-
-			view.ShowDialog();
-		}
 	}
 }

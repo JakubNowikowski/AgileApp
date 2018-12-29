@@ -1,134 +1,149 @@
-﻿using AgileApp.Helpers;
-using System.ComponentModel;
+﻿using AgileApp.Models;
+using Prism.Mvvm;
+using System.Windows.Controls;
 using System.Windows.Input;
+using Prism.Commands;
+using System.Collections.ObjectModel;
+using static AgileApp.Models.MembersProperties;
 
 namespace AgileApp.ViewModels
 {
-	public class MainWindowViewModel : ObservableObject
+	class MainWindowViewModel : BindableBase
 	{
-		public MainWindowViewModel(IDialogService dialogService)
+		private MembersProperties _userProp;
+
+		private readonly StackPanel _stkpnlProjectManager;
+		private readonly StackPanel _stkpnlProductOwner;
+		private readonly StackPanel _stkpnlScrumMaster;
+		private readonly StackPanel _stkpnlArchitect;
+		private readonly StackPanel _stkpnlDevTeam;
+
+		public ICommand AddCommand { get; private set; }
+		public ICommand MyCommand { get; set; }
+
+
+
+		public MainWindowViewModel(StackPanel stkpnlProductOwner, StackPanel stkpnlProjectManager, StackPanel stkpnlScrumMaster, StackPanel stkpnlArchitect, StackPanel stkpnlDevTeam)
 		{
-			this.dialogService = dialogService;
-			DisplayMessageCommand = new DelegateCommand(p => DisplayMessage());
-			DisplayUserName = new DelegateCommand(p => SetUserName());
-			//DisplayMessageCommand2 = new DelegateCommand(p => DisplayMessage2());
-		}
+			//this.dialogService = dialogService;
+			////DisplayMessageCommand = new DelegateCommand(p => DisplayMessage());
+			//DisplayUserName = new DelegateCommand(p => SetUserName());
 
 
-		//public string getName()
-		//{
-		//	return addWindowVm.Name;
-		//}
-
-		private readonly IDialogService dialogService;
-
-		private string _userName;
-
-		public string UserName
-		{
-			get { return _userName; }
-			set
+			Persons = new ObservableCollection<Person>()
 			{
-				_userName = AddWindowViewModel.Name;
-				RaisePropertyChangedEvent("UserName");
-			}
+			new Person(){ Id=1, Name="Product Owner"}
+				,new Person(){Id=2,Name="Project Manager"}
+				,new Person(){Id=3 , Name="Scrum Master"}
+				,new Person(){Id=4 , Name="Architect"}
+				,new Person(){Id=5 , Name="Dev team"}
+			};
+
+			_stkpnlProjectManager = stkpnlProjectManager;
+			_stkpnlProductOwner = stkpnlProductOwner;
+			_stkpnlScrumMaster = stkpnlScrumMaster;
+			_stkpnlArchitect = stkpnlArchitect;
+			_stkpnlDevTeam = stkpnlDevTeam;
+
+			_userProp = new MembersProperties();
+			//_userProp.stkPanel = stkpnlProjectManager;
+			AddCommand = new DelegateCommand(AddMemberToStackPanel);
+			//MyCommand = new DelegateCommand(executemethod, canexecutemethod);
 		}
 
-		private void SetUserName()
+		public MembersProperties UserProperties
 		{
-			UserName = "test";
+			get { return _userProp; }
+			set { SetProperty(ref _userProp, value); }
 		}
 
-		//private void SetUserName()
-		//{
-		//	if (getName() == "Product owner")
-		//		UserName = "test";
-		//}
-
-
-		//public ICommand SetUserNameText
-		//{
-		//	get { return new DelegateCommand(SetUserName1); }
-		//}
-
-
-		public ICommand DisplayMessageCommand { get; }
-		public ICommand DisplayUserName { get; }
-
-		//public ICommand DisplayMessageCommand2 { get; }
-
-		private void DisplayMessage()
+		private void AddMemberToStackPanel()
 		{
-			var viewModel = new AddWindowViewModel();
+			MatchRoleWithStackPanel();
 
-			bool? result = dialogService.ShowDialog(viewModel);
-
-			if (result.HasValue)
+			_userProp.Message = SPerson.Name;
+			TextBlock lbl = new TextBlock()
 			{
-				if (result.Value)
-				{
-					// Accepted
-				}
-				else
-				{
-					// Cancelled
-				}
-			}
+				Text = "This is Dynamic Label"
+			};
+			_userProp.stkPanel.Children.Add(lbl);
+			//_userProp.stkPanel.RegisterName(lbl.Name, lbl);
 		}
 
-		//public event PropertyChangedEventHandler PropertyChanged;
+		private void MatchRoleWithStackPanel()
+		{
+			switch (SPerson.Name)
+			{
+				case "Project Manager":
+					_userProp.stkPanel = _stkpnlProjectManager;
+					break;
+				case "Product Owner":
+					_userProp.stkPanel = _stkpnlProductOwner;
+					break;
+				case "Scrum Master":
+					_userProp.stkPanel = _stkpnlScrumMaster;
+					break;
+				case "Architect":
+					_userProp.stkPanel = _stkpnlArchitect;
+					break;
+				case "Dev team":
+					_userProp.stkPanel = _stkpnlDevTeam;
+					break;
+				default:
+					_userProp.stkPanel = null;
+					break;
+			}
 
-		//protected void RaisePropertyChangedEvent(string propertyName)
+		}
+
+		private ObservableCollection<Person> _persons;
+
+		public ObservableCollection<Person> Persons
+		{
+			get { return _persons; }
+			set { _persons = value; }
+		}
+		private Person _sperson;
+
+		public Person SPerson
+		{
+			get { return _sperson; }
+			set { _sperson = value; }
+		}
+
+
+		//private string _userName;
+
+		//public string Name { get; set; }
+
+		//public string UserName
 		//{
-		//	var handler = PropertyChanged;
-		//	if (handler != null)
-		//		handler(this, new PropertyChangedEventArgs(propertyName));
-		//}
-
-
-		//private void DisplayMessage2()
-		//{
-		//	var viewModel = new DialogViewModel("elo");
-
-		//	bool? result = dialogService.ShowDialog(viewModel);
-
-		//	if (result.HasValue)
-		//	{
-		//		if (result.Value)
-		//		{
-		//			// Accepted
-		//		}
-		//		else
-		//		{
-		//			// Cancelled
-		//		}
-		//	}
-		//}
-
-
-
-
-		//private string _userName1;
-
-		//public string UserName1
-		//{
-		//	get { return _userName1; }
+		//	get { return _userName; }
 		//	set
 		//	{
-		//		_userName1 = value;
-		//		RaisePropertyChangedEvent("UserName1");
+		//		_userName = Name;
+		//		RaisePropertyChanged("UserName");
 		//	}
 		//}
 
+		////public ICommand DisplayMessageCommand { get; }
+		//public ICommand DisplayUserName { get; }
 
-		//public ICommand SetUserNameText
+		//private bool canexecutemethod(object parameter)
 		//{
-		//	get { return new DelegateCommand(SetUserName1); }
+		//	if (parameter != null)
+		//	{
+		//		return true;
+		//	}
+		//	else
+		//	{
+		//		return false;
+		//	}
 		//}
 
-		//private void SetUserName1()
+		//private void executemethod(object parameter)
 		//{
-		//	UserName1 = "test";
+		//	Name = (string)parameter;
 		//}
 	}
 }
