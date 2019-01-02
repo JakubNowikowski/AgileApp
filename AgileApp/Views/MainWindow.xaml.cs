@@ -13,7 +13,7 @@ namespace AgileApp.Views
 		public MainWindow()
 		{
 			InitializeComponent();
-			this.DataContext = new MainWindowViewModel(stkpnlProductOwner, stkpnlProjectManager,stkpnlScrumMaster,stkpnlArchitect,stkpnlDevTeam);
+			this.DataContext = new MainWindowViewModel(stkpnlProductOwner, stkpnlProjectManager,stkpnlScrumMaster,stkpnlArchitect,stkpnlDevTeam,stkpnlTeamMembers);
 
 		}
 

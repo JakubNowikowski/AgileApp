@@ -47,50 +47,104 @@
         BorderThickness="1,0,0,0" Background="{x:Null}" />
 
                 <!--All members-->
-                <StackPanel Grid.Column="0" Margin="0 0 0 0" Background="AntiqueWhite">
+                <StackPanel Name="stkpnlTeamMembers" Grid.Column="0" Margin="0 0 0 0" Background="WhiteSmoke">
                     <TextBlock Text="Team members" HorizontalAlignment="Center" FontSize="20"/>
                     <Label x:Name="lblMessage" HorizontalAlignment="Left"  Content="{Binding UserProperties.Message,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top"/>
+                    
+                    
+                    <TextBox Text="{Binding MemberName, UpdateSourceTrigger=PropertyChanged}" Margin="10" Width="120" />
+                    
+                    
+                    <Button Command="{Binding AddNewMemberCommand}" Content="Add member" Grid.Column="0" Width="120"/>
+                    
 
-                    <!--Jakub-->
+                    <!--Member1-->
                     <Border Padding="20">
-                        <StackPanel Background="DarkSeaGreen">
+                        <StackPanel Background="PowderBlue">
+                            <TextBlock Text="Jerry" HorizontalAlignment="Center"/>
                             <TextBlock Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Button Command="{Binding AddCommand}" Content="Add" Grid.Column="0" Margin="10,10,10.2,10.2"/>
-                                <Button Command="{Binding DisplayUserInfo}" Content="Info" Grid.Column="1" Margin="10"/>
-
-
+                                <Button Command="{Binding AddJerryCommand}" Content="Add" Grid.Column="0" Margin="10,10,10.2,10.2"/>
+                                <Button Command="{Binding ClearCommand}" Content="Info" Grid.Column="1" Margin="10"/>
                             </Grid>
                             <ComboBox HorizontalAlignment="Center"   
                                       Margin="0, 0, 0, 10"
-                                      Text="-- Select Team --"
+                                      Width="125"
+                                      VerticalAlignment="Top"      
+                                      ItemsSource="{Binding Path=Persons}"
+                                      SelectedItem="{Binding Path=SPerson}"  
+                                      DisplayMemberPath="Name"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!--<Border Padding="20">
+                        <StackPanel Background="PowderBlue">
+                            <TextBlock Text="Johnny" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Command="{Binding AddJohnnyCommand}" Content="Add" Grid.Column="0" Margin="10,10,10.2,10.2"/>
+                                <Button Command="{Binding ClearCommand}" Content="Info" Grid.Column="1" Margin="10"/>
+                            </Grid>
+                            <ComboBox HorizontalAlignment="Center"   
+                                      Margin="0, 0, 0, 10"
                                       Width="125"
                                       VerticalAlignment="Top"      
                                       ItemsSource="{Binding Path=Persons}"    
                                       SelectedItem="{Binding Path=SPerson}"  
                                       DisplayMemberPath="Name"/>
-
-
-
-                            <!--<RadioButton Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=rbtnProductOwner, Path=Content}" Name="rbtnProductOwner" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Product owner"/>
-                               <RadioButton Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=rbtnProjectManager, Path=Content}" VerticalAlignment="Center" HorizontalAlignment="Left" Name="rbtnProjectManager" Content="Project manager"/>-->
-
                         </StackPanel>
-                    </Border>
+                    </Border>-->
+
+
+                    <ItemsControl ItemsSource="{Binding NewAddButton,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Content="{Binding Content}" Command="{Binding Command}" Width="120" Height="120"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <ItemsControl ItemsSource="{Binding NewCombobox,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ComboBox HorizontalAlignment="Center"   
+                                      Margin="0, 0, 0, 10"
+                                      Width="125"
+                                      VerticalAlignment="Top"      
+                                      ItemsSource="{Binding ItemsSource}"    
+                                          IsSynchronizedWithCurrentItem="False"
+                                      SelectedItem="{Binding SelectedItem}"
+                                      DisplayMemberPath="Name"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    
                 </StackPanel>
 
                 <!--Product owner-->
-                <StackPanel Name="stkpnlProductOwner" Grid.Column="1" Margin="0 0 0 0">
-                    <TextBlock Text="Product owner" HorizontalAlignment="Center" FontSize="15"/>
+
+                <TextBlock Text="Product owner" Grid.Column="1" HorizontalAlignment="Center" FontSize="15"/>
+                <Button Command="{Binding ClearStkpnlProductOwner}" Content="Clear" Grid.Column="1" Margin="0 20 0 0 " Width="40" Height="20" VerticalAlignment="Top"/>
+
+                <StackPanel Name="stkpnlProductOwner" Grid.Column="1" Margin="0 50 0 0">
+                    <!--Dynamic textblocks-->
                 </StackPanel>
 
                 <!--Project manager-->
-                <StackPanel Name="stkpnlProjectManager" Grid.Column="2" Margin="0 0 0 0">
-                    <TextBlock Text="Project manager" HorizontalAlignment="Center" FontSize="15"/>
+
+                <TextBlock Text="Project manager" Grid.Column="2" HorizontalAlignment="Center" FontSize="15"/>
+                <Button Command="{Binding ClearStkpnlProjectManager}" Content="Clear" Grid.Column="2" Margin="0 20 0 0 " Width="40" Height="20" VerticalAlignment="Top"/>
+
+                <StackPanel Name="stkpnlProjectManager" Grid.Column="2" Margin="0 50 0 0">
+                    <!--Dynamic textblocks-->
                 </StackPanel>
 
                 <!--Scrum master-->

@@ -1,10 +1,12 @@
 ﻿using AgileApp.Helpers;
 using System;
+using Prism;
 using System.Windows.Input;
+using Prism.Mvvm;
 
 namespace AgileApp.ViewModels
 {
-	public class AddWindowViewModel : IDialogRequestClose
+	public class AddWindowViewModel : BindableBase
 	{
 		public AddWindowViewModel()
 		{

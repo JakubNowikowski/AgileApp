@@ -1,5 +1,7 @@
 ﻿using Prism.Mvvm;
+using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace AgileApp.Models
 {
@@ -25,20 +27,47 @@ namespace AgileApp.Models
 
 		public class Person
 		{
-			private int _id;
-			public int Id
-			{
-				get { return _id; }
-				set { _id = value; }
-			}
-			private string _name;
+			public int Id { get; set; }
 
-			public string Name
-			{
-				get { return _name; }
-				set { _name = value; }
-			}
+			public string Name { get; set; }
+
 		}
+
+		//Dynamic button
+
+		public class ButtonModel
+		{
+
+			public string Content { get; set; }
+
+			public ICommand Command { get; set; }
+
+		}
+
+		// Dynamic combobox
+
+
+		public class ComboboxModel
+		{
+
+			public ObservableCollection<Person> ItemsSource { get; set; }
+
+			public Person SelectedItem { get; set; }
+
+		}
+
+		//public class SomeDataModel
+		//{
+		//	public string Content { get; set; }
+
+		//	public ICommand Command { get; set; }
+
+		//	public SomeDataModel(string content, ICommand command)
+		//	{
+		//		Content = content;
+		//		Command = command;
+		//	}
+		//}
 
 	}
 }

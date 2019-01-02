@@ -1,10 +1,12 @@
 ﻿using AgileApp.Models;
+using AgileApp.Views;
 using Prism.Mvvm;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Prism.Commands;
 using System.Collections.ObjectModel;
 using static AgileApp.Models.MembersProperties;
+using System.Data;
 
 namespace AgileApp.ViewModels
 {
@@ -17,16 +19,23 @@ namespace AgileApp.ViewModels
 		private readonly StackPanel _stkpnlScrumMaster;
 		private readonly StackPanel _stkpnlArchitect;
 		private readonly StackPanel _stkpnlDevTeam;
+		private readonly StackPanel _stkpnlTeamMembers;
 
-		public ICommand AddCommand { get; private set; }
+
+
+		public ICommand AddNewMemberCommand { get; private set; }
+		public ICommand AddJerryCommand { get; private set; }
+		public ICommand AddJohnnyCommand { get; private set; }
+		public ICommand ClearStkpnlProductOwner { get; private set; }
+		public ICommand ClearStkpnlProjectManager { get; private set; }
 		public ICommand MyCommand { get; set; }
 
 
 
-		public MainWindowViewModel(StackPanel stkpnlProductOwner, StackPanel stkpnlProjectManager, StackPanel stkpnlScrumMaster, StackPanel stkpnlArchitect, StackPanel stkpnlDevTeam)
+		public MainWindowViewModel(StackPanel stkpnlProductOwner, StackPanel stkpnlProjectManager, StackPanel stkpnlScrumMaster, StackPanel stkpnlArchitect, StackPanel stkpnlDevTeam, StackPanel stkpnlTeamMembers)
 		{
 			//this.dialogService = dialogService;
-			////DisplayMessageCommand = new DelegateCommand(p => DisplayMessage());
+			//DisplayMessageCommand = new DelegateCommand(p => DisplayMessage());
 			//DisplayUserName = new DelegateCommand(p => SetUserName());
 
 
@@ -39,17 +48,101 @@ namespace AgileApp.ViewModels
 				,new Person(){Id=5 , Name="Dev team"}
 			};
 
+			//MyData = new ObservableCollection<SomeDataModel>()
+			//{
+			//new SomeDataModel(){ Content="Jerry", Command=MyCommand}
+			//};
+
 			_stkpnlProjectManager = stkpnlProjectManager;
 			_stkpnlProductOwner = stkpnlProductOwner;
 			_stkpnlScrumMaster = stkpnlScrumMaster;
 			_stkpnlArchitect = stkpnlArchitect;
 			_stkpnlDevTeam = stkpnlDevTeam;
+			_stkpnlTeamMembers = stkpnlTeamMembers;
+
 
 			_userProp = new MembersProperties();
 			//_userProp.stkPanel = stkpnlProjectManager;
-			AddCommand = new DelegateCommand(AddMemberToStackPanel);
+			AddJerryCommand = new DelegateCommand(() => AddMemberToStackPanel("Jerry"));
+			AddJohnnyCommand = new DelegateCommand(() => AddMemberToStackPanel("Johnny"));
+			ClearStkpnlProductOwner = new DelegateCommand(() => ClearStackPanel(stkpnlProductOwner));
+			ClearStkpnlProjectManager = new DelegateCommand(() => ClearStackPanel(stkpnlProjectManager));
+			AddNewMemberCommand = new DelegateCommand(AddNewMember);
+			MyCommand = new DelegateCommand(() => AddMemberToStackPanel("MyCommand"));
+
 			//MyCommand = new DelegateCommand(executemethod, canexecutemethod);
 		}
+
+		private void ShowAddWindow()
+		{
+			AddWindow objAddWindow = new AddWindow();
+			objAddWindow.Show();
+		}
+
+		private string _memberName;
+
+		public string MemberName
+		{
+			get { return _memberName; }
+			set
+			{
+				_memberName = value;
+				RaisePropertyChanged("MemberName");
+			}
+		}
+
+		private void AddNewMember()
+		{
+
+			_userProp.stkPanel = _stkpnlTeamMembers;
+
+			//MyData = new ObservableCollection<SomeDataModel>()
+			//{
+			//new SomeDataModel(){ Content="Jerry", Command=MyCommand}
+			//};
+
+
+			NewAddButton.Add(new ButtonModel() {Content="Jerry", Command=MyCommand });
+
+			NewCombobox.Add(new ComboboxModel() { ItemsSource = Persons, SelectedItem = SPerson });
+
+			//NewCombobox.Add(new ComboboxModel());
+
+			//MyData.Add()
+
+			//StackPanel lbl = new StackPanel()
+			//{
+
+			//	Name = MemberName
+			//};
+			//_userProp.stkPanel.Children.Add(lbl);
+
+		}
+
+		//private ObservableCollection<SomeDataModel> _MyData = new ObservableCollection<SomeDataModel>();
+		//public ObservableCollection<SomeDataModel> MyData { get { return _MyData; } }
+
+
+		private ObservableCollection<ButtonModel> _newAddButton = new ObservableCollection<ButtonModel>();
+		public ObservableCollection<ButtonModel> NewAddButton 
+		{
+			get { return _newAddButton; }
+			set { _newAddButton = value; RaisePropertyChanged("MyData"); }
+		}
+		//public ObservableCollection<Person> Persons
+		//{
+		//	get { return _persons; }
+		//	set { _persons = value; }
+		//}
+
+		private ObservableCollection<ComboboxModel> _newCombobox = new ObservableCollection<ComboboxModel>();
+		public ObservableCollection<ComboboxModel> NewCombobox
+		{
+			get { return _newCombobox; }
+			set { _newCombobox = value; RaisePropertyChanged("NewCombobox"); }
+		}
+
+
 
 		public MembersProperties UserProperties
 		{
@@ -57,14 +150,13 @@ namespace AgileApp.ViewModels
 			set { SetProperty(ref _userProp, value); }
 		}
 
-		private void AddMemberToStackPanel()
+		private void AddMemberToStackPanel(string memberName)
 		{
 			MatchRoleWithStackPanel();
 
-			_userProp.Message = SPerson.Name;
 			TextBlock lbl = new TextBlock()
 			{
-				Text = "This is Dynamic Label"
+				Text = memberName
 			};
 			_userProp.stkPanel.Children.Add(lbl);
 			//_userProp.stkPanel.RegisterName(lbl.Name, lbl);
@@ -93,7 +185,11 @@ namespace AgileApp.ViewModels
 					_userProp.stkPanel = null;
 					break;
 			}
+		}
 
+		private void ClearStackPanel(StackPanel stkpnl)
+		{
+			stkpnl.Children.Clear();
 		}
 
 		private ObservableCollection<Person> _persons;
@@ -108,7 +204,7 @@ namespace AgileApp.ViewModels
 		public Person SPerson
 		{
 			get { return _sperson; }
-			set { _sperson = value; }
+			set { _sperson = value; RaisePropertyChanged("SPerson"); }
 		}
 
 
