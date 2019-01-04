@@ -50,16 +50,16 @@
                 <StackPanel Name="stkpnlTeamMembers" Grid.Column="0" Margin="0 0 0 0" Background="WhiteSmoke">
                     <TextBlock Text="Team members" HorizontalAlignment="Center" FontSize="20"/>
                     <Label x:Name="lblMessage" HorizontalAlignment="Left"  Content="{Binding UserProperties.Message,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top"/>
-                    
-                    
+
+
                     <TextBox Text="{Binding MemberName, UpdateSourceTrigger=PropertyChanged}" Margin="10" Width="120" />
-                    
-                    
+
+
                     <Button Command="{Binding AddNewMemberCommand}" Content="Add member" Grid.Column="0" Width="120"/>
-                    
+
 
                     <!--Member1-->
-                    <Border Padding="20">
+                    <!--<Border Padding="20">
                         <StackPanel Background="PowderBlue">
                             <TextBlock Text="Jerry" HorizontalAlignment="Center"/>
                             <TextBlock Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
@@ -79,31 +79,9 @@
                                       SelectedItem="{Binding Path=SPerson}"  
                                       DisplayMemberPath="Name"/>
                         </StackPanel>
-                    </Border>
-
-                    <!--<Border Padding="20">
-                        <StackPanel Background="PowderBlue">
-                            <TextBlock Text="Johnny" HorizontalAlignment="Center"/>
-                            <TextBlock Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Button Command="{Binding AddJohnnyCommand}" Content="Add" Grid.Column="0" Margin="10,10,10.2,10.2"/>
-                                <Button Command="{Binding ClearCommand}" Content="Info" Grid.Column="1" Margin="10"/>
-                            </Grid>
-                            <ComboBox HorizontalAlignment="Center"   
-                                      Margin="0, 0, 0, 10"
-                                      Width="125"
-                                      VerticalAlignment="Top"      
-                                      ItemsSource="{Binding Path=Persons}"    
-                                      SelectedItem="{Binding Path=SPerson}"  
-                                      DisplayMemberPath="Name"/>
-                        </StackPanel>
                     </Border>-->
 
-
+                    
                     <ItemsControl ItemsSource="{Binding NewAddButton,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -112,7 +90,7 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
 
-                    <ItemsControl ItemsSource="{Binding NewCombobox,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    <!--<ItemsControl ItemsSource="{Binding NewCombobox,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <ComboBox HorizontalAlignment="Center"   
@@ -120,13 +98,26 @@
                                       Width="125"
                                       VerticalAlignment="Top"      
                                       ItemsSource="{Binding ItemsSource}"    
-                                          IsSynchronizedWithCurrentItem="False"
                                       SelectedItem="{Binding SelectedItem}"
+                                      IsSynchronizedWithCurrentItem="True" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>-->
+
+                    <ItemsControl ItemsSource="{Binding NewCombobox,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ComboBox HorizontalAlignment="Center"   
+                                      Margin="0, 0, 0, 10"
+                                      Width="125"
+                                      VerticalAlignment="Top"      
+                                      ItemsSource="{Binding ItemsSource,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"    
+                                      SelectedItem="{Binding SelectedItem,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                       DisplayMemberPath="Name"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                    
+
                 </StackPanel>
 
                 <!--Product owner-->

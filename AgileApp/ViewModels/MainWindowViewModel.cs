@@ -28,7 +28,7 @@ namespace AgileApp.ViewModels
 		public ICommand AddJohnnyCommand { get; private set; }
 		public ICommand ClearStkpnlProductOwner { get; private set; }
 		public ICommand ClearStkpnlProjectManager { get; private set; }
-		public ICommand MyCommand { get; set; }
+		public ICommand MyCommand { get; private set; }
 
 
 
@@ -39,14 +39,14 @@ namespace AgileApp.ViewModels
 			//DisplayUserName = new DelegateCommand(p => SetUserName());
 
 
-			Persons = new ObservableCollection<Person>()
-			{
-			new Person(){ Id=1, Name="Product Owner"}
-				,new Person(){Id=2,Name="Project Manager"}
-				,new Person(){Id=3 , Name="Scrum Master"}
-				,new Person(){Id=4 , Name="Architect"}
-				,new Person(){Id=5 , Name="Dev team"}
-			};
+			//Persons = new ObservableCollection<Person>()
+			//{
+			//new Person(){ Id=1, Name="Product Owner"}
+			//	,new Person(){Id=2,Name="Project Manager"}
+			//	,new Person(){Id=3 , Name="Scrum Master"}
+			//	,new Person(){Id=4 , Name="Architect"}
+			//	,new Person(){Id=5 , Name="Dev team"}
+			//};
 
 			//MyData = new ObservableCollection<SomeDataModel>()
 			//{
@@ -101,10 +101,19 @@ namespace AgileApp.ViewModels
 			//new SomeDataModel(){ Content="Jerry", Command=MyCommand}
 			//};
 
+			Persons = new ObservableCollection<Person>()
+			{
+			new Person(){ Id=1, Name="Product Owner"}
+				,new Person(){Id=2,Name="Project Manager"}
+				,new Person(){Id=3 , Name="Scrum Master"}
+				,new Person(){Id=4 , Name="Architect"}
+				,new Person(){Id=5 , Name="Dev team"}
+			};
 
-			NewAddButton.Add(new ButtonModel() {Content="Jerry", Command=MyCommand });
+			NewCombobox.Add(new ComboboxModel() { ItemsSource = Persons, SelectedItem = SPerson});
 
-			NewCombobox.Add(new ComboboxModel() { ItemsSource = Persons, SelectedItem = SPerson });
+			NewAddButton.Add(new ButtonModel() { Content = "Jerry", Command = MyCommand });
+
 
 			//NewCombobox.Add(new ComboboxModel());
 
@@ -124,7 +133,7 @@ namespace AgileApp.ViewModels
 
 
 		private ObservableCollection<ButtonModel> _newAddButton = new ObservableCollection<ButtonModel>();
-		public ObservableCollection<ButtonModel> NewAddButton 
+		public ObservableCollection<ButtonModel> NewAddButton
 		{
 			get { return _newAddButton; }
 			set { _newAddButton = value; RaisePropertyChanged("MyData"); }
@@ -143,7 +152,6 @@ namespace AgileApp.ViewModels
 		}
 
 
-
 		public MembersProperties UserProperties
 		{
 			get { return _userProp; }
@@ -152,6 +160,7 @@ namespace AgileApp.ViewModels
 
 		private void AddMemberToStackPanel(string memberName)
 		{
+
 			MatchRoleWithStackPanel();
 
 			TextBlock lbl = new TextBlock()
@@ -161,6 +170,7 @@ namespace AgileApp.ViewModels
 			_userProp.stkPanel.Children.Add(lbl);
 			//_userProp.stkPanel.RegisterName(lbl.Name, lbl);
 		}
+
 
 		private void MatchRoleWithStackPanel()
 		{
@@ -189,7 +199,7 @@ namespace AgileApp.ViewModels
 
 		private void ClearStackPanel(StackPanel stkpnl)
 		{
-			stkpnl.Children.Clear();
+			stkpnl.Children.RemoveAt(stkpnl.Children.Count-1);
 		}
 
 		private ObservableCollection<Person> _persons;
@@ -197,8 +207,10 @@ namespace AgileApp.ViewModels
 		public ObservableCollection<Person> Persons
 		{
 			get { return _persons; }
-			set { _persons = value; }
+			set { _persons = value; RaisePropertyChanged("Persons"); }
 		}
+
+
 		private Person _sperson;
 
 		public Person SPerson

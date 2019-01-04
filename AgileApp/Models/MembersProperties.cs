@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace AgileApp.Models
 {
-	class MembersProperties : BindableBase
+	public class MembersProperties : BindableBase
 	{
 
 		private StackPanel _stkPanel;
@@ -47,14 +47,25 @@ namespace AgileApp.Models
 		// Dynamic combobox
 
 
-		public class ComboboxModel
+		public class ComboboxModel:BindableBase
 		{
 
 			public ObservableCollection<Person> ItemsSource { get; set; }
 
-			public Person SelectedItem { get; set; }
+			//public Person SelectedItem { get; set; }
+
+			private Person _selectedItem;
+
+			public Person SelectedItem
+			{
+				get { return _selectedItem; }
+				//set { _selectedItem = value; }
+				set { _selectedItem = value; RaisePropertyChanged("SelectedItem");  }
+			}
+
 
 		}
+
 
 		//public class SomeDataModel
 		//{
