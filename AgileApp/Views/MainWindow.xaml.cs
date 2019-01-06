@@ -1,25 +1,26 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using AgileApp.ViewModels;
+using MahApps.Metro.Controls;
 
 namespace AgileApp.Views
 {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class MainWindow : MetroWindow
 	{
 		
 		public MainWindow()
 		{
 			InitializeComponent();
-			this.DataContext = new MainWindowViewModel(stkpnlProductOwner, stkpnlProjectManager,stkpnlScrumMaster,stkpnlArchitect,stkpnlDevTeam,stkpnlTeamMembers);
+			//this.DataContext = new MainWindowViewModel(stkpnlProductOwner, stkpnlProjectManager,stkpnlScrumMaster,stkpnlArchitect,stkpnlDevTeam,stkpnlTeamMembers);
 
 		}
 
-		private void OnCloseExecuted(object sender, ExecutedRoutedEventArgs e)
-		{
-			this.Close();
-		}
+		//private void OnCloseExecuted(object sender, ExecutedRoutedEventArgs e)
+		//{
+		//	this.Close();
+		//}
 	}
 }

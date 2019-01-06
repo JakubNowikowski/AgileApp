@@ -3,69 +3,80 @@ using System;
 using Prism;
 using System.Windows.Input;
 using Prism.Mvvm;
+using System.ComponentModel;
+using AgileApp.Services;
+using AgileApp.Models;
+using AgileApp.Utility;
+using AgileApp.Messages;
 
 namespace AgileApp.ViewModels
 {
-	public class AddWindowViewModel : BindableBase
+	public class AddWindowViewModel : INotifyPropertyChanged
 	{
+		private MemberDataService memberDataService;
+		public event PropertyChangedEventHandler PropertyChanged;
+
+
+		private void RaisePropertyChanged(string propertyName)
+		{
+			if (PropertyChanged != null)
+				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+
+		public ICommand SaveCommand { get; set; }
+		public ICommand DeleteCommand { get; set; }
+
+		private Member selectedMember;
+		public Member SelectedMember
+		{
+			get
+			{
+				return selectedMember;
+			}
+			set
+			{
+				selectedMember = value;
+				RaisePropertyChanged("SelectedMember");
+			}
+		}
+
 		public AddWindowViewModel()
 		{
-			//Name = null;
-			//SetRole = new DelegateCommand(p => f());
-			//MyCommand = new DelegateCommand(executemethod, canexecutemethod);
-			//OkCommand = new DelegateCommand(p => CloseRequested?.Invoke(this, new DialogCloseRequestedEventArgs(true)));
+			Messenger.Default.Register<Member>(this, OnMemberReceived);
 
-			//CancelCommand = new DelegateCommand(p => CloseRequested?.Invoke(this, new DialogCloseRequestedEventArgs(false)));
+			SaveCommand = new CustomCommand(SaveMember, CanSaveMember);
+			DeleteCommand = new CustomCommand(DeleteMember, CanDeleteMember);
+
+			memberDataService = new MemberDataService();
 		}
-		
-		//public ICommand SetRole { get; }
-		//public ICommand MyCommand { get; set; }
-		//public ICommand OkCommand { get; }
-		////private string _name;
-		//private string _test;
 
-		public static string Name { get; set; }
-
-
-		//public string Name
-		//{
-		//	get { return _name; }
-		//	set
-		//	{
-		//		_name = value;
-		//		RaisePropertyChangedEvent("Name");
-		//	}
-		//}
-
-		//public static string test;
-		
-
-		//private void f()
-		//{
-		//	if (Name == "Product owner")
-		//		test = Name;
-		//}
-
-		private bool canexecutemethod(object parameter)
+		public void OnMemberReceived(Member member)
 		{
-			if (parameter != null)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			SelectedMember = member;
 		}
 
-		private void executemethod(object parameter)
+		private bool CanDeleteMember(object obj)
 		{
-			Name = (string)parameter;
+			return true;
 		}
 
-		//public ICommand CancelCommand { get; }
-		public event EventHandler<DialogCloseRequestedEventArgs> CloseRequested;
-		public string Message { get; }
+		private void DeleteMember(object member)
+		{
+			memberDataService.DeleteMember(selectedMember);
+
+			Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
+		}
+
+		private bool CanSaveMember(object obj)
+		{
+			return true;
+		}
+
+		private void SaveMember(object member)
+		{
+			memberDataService.UpdateMember(selectedMember);
+			Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
+		}
 
 	}
 }
