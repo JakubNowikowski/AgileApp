@@ -160,5 +160,8 @@
     <Resource Include="Images\2.png" />
     <Resource Include="Images\3.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DAL\MembersSource.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -24,7 +24,7 @@ namespace AgileApp.Services
 
 		public List<Member> GetAllMembers()
 		{
-			return repository.GetMembers();
+			return repository.GetMembers2();
 		}
 
 		public void UpdateMember(Member member)

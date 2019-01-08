@@ -12,7 +12,6 @@ namespace AgileApp.Models
 		private int memberId;
 		private string memberName;
 		private string extraSkills;
-		private int price;
 
 		public int MemberId
 		{
@@ -40,6 +39,18 @@ namespace AgileApp.Models
 			}
 		}
 
+		public string Description
+		{
+			get;
+			set;
+		}
+
+		public string Position
+		{
+			get;
+			set;
+		}
+
 		public string ExtraSkills
 		{
 			get
@@ -53,37 +64,7 @@ namespace AgileApp.Models
 			}
 		}
 
-		public int Price
-		{
-			get
-			{
-				return price;
-			}
-			set
-			{
-				price = value;
-				RaisePropertyChanged("Price");
-			}
-		}
-
-		public string Description
-		{
-			get;
-			set;
-		}
-
-		public bool InStock
-		{
-			get;
-			set;
-		}
-
-		public string Position
-		{
-			get;
-			set;
-		}
-		
+				
 		public int ImageId
 		{
 			get;
@@ -98,7 +79,6 @@ namespace AgileApp.Models
 			get { return _stkPanel; }
 			set { SetProperty(ref _stkPanel, value); }
 		}
-
 
 		private string _message;
 

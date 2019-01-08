@@ -16,6 +16,35 @@ namespace AgileApp.ViewModels
 	//class MainWindowViewModel : BindableBase
 	public class MainWindowViewModel : INotifyPropertyChanged
 	{
+
+		private bool _isControlsEnable;
+
+		public bool IsControlsEnable
+		{
+			get { return _isControlsEnable; }
+			set
+			{
+				_isControlsEnable = value;
+				RaisePropertyChanged("IsControlsEnable");
+			}
+		}
+
+
+		private bool CanDeleteMember(object obj)
+		{
+			if (SelectedMember != null)
+				return true;
+			return false;
+		}
+
+		private void DeleteMember(object member)
+		{
+			memberDataService.DeleteMember(selectedMember);
+
+			Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
+		}
+
+
 		public event PropertyChangedEventHandler PropertyChanged;
 		private MemberDataService memberDataService;
 
@@ -47,7 +76,9 @@ namespace AgileApp.ViewModels
 				RaisePropertyChanged("SelectedMember");
 			}
 		}
+
 		public ICommand EditCommand { get; set; }
+		public ICommand DeleteCommand { get; set; }
 
 		private void RaisePropertyChanged(string propertyName)
 		{
@@ -68,6 +99,7 @@ namespace AgileApp.ViewModels
 		private void LoadCommands()
 		{
 			EditCommand = new CustomCommand(EditMember, CanEditMember);
+			DeleteCommand = new CustomCommand(DeleteMember, CanDeleteMember);
 		}
 
 		private void OnUpdateListMessageReceived(UpdateListMessage obj)
@@ -88,7 +120,11 @@ namespace AgileApp.ViewModels
 		private bool CanEditMember(object obj)
 		{
 			if (SelectedMember != null)
+			{
+				IsControlsEnable = true;
 				return true;
+			}
+			IsControlsEnable = false;
 			return false;
 		}
 

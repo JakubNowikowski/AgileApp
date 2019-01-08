@@ -1,0 +1,11 @@
+<root>
+<user name = "user" >
+	<level2 name="A1" />
+	<level2 name = "A2" />
+</user >
+<user name="user">
+	<level2 name = "B1" />
+	<level2 name="B2" />
+</user>
+<user name = "user" />
+</root >

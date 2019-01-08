@@ -1,0 +1,20 @@
+﻿<Members>
+  <Member id="1">
+    <Name>1nameval</Name>
+    <Description>1descval</Description>
+    <Position>1posval</Position>
+    <ExtraSkills>1extraval</ExtraSkills>
+  </Member>
+  <Member id="2">
+    <Name>2nameval</Name>
+    <Description>2descval</Description>
+    <Position>2posval</Position>
+    <ExtraSkills>2extraval</ExtraSkills>
+  </Member>
+  <Member id="3">
+    <Name>3nameval</Name>
+    <Description>3descval</Description>
+    <Position>3posval</Position>
+    <ExtraSkills>3extraval</ExtraSkills>
+  </Member>
+</Members>
