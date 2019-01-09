@@ -17,7 +17,7 @@ namespace AgileApp.Services
 		{
 		}
 
-		public void ShowDetailDialog()
+		public void ShowAddWindow()
 		{
 			addWindow = new AddWindow();
 			addWindow.ShowDialog();

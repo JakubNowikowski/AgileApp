@@ -60,9 +60,9 @@ namespace AgileApp.ViewModels
 			return true;
 		}
 
-		private void DeleteMember(object member)
+		private void DeleteMember(object memberId)
 		{
-			memberDataService.DeleteMember(selectedMember);
+			memberDataService.DeleteMember(selectedMember.MemberId);
 
 			Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
 		}

@@ -10,36 +10,27 @@ using AgileApp.Services;
 using AgileApp.Utility;
 using AgileApp.Messages;
 using AgileApp.Extensions;
+using System;
 
 namespace AgileApp.ViewModels
 {
 	//class MainWindowViewModel : BindableBase
 	public class MainWindowViewModel : INotifyPropertyChanged
 	{
-
-		private bool _isControlsEnable;
-
-		public bool IsControlsEnable
-		{
-			get { return _isControlsEnable; }
-			set
-			{
-				_isControlsEnable = value;
-				RaisePropertyChanged("IsControlsEnable");
-			}
-		}
-
+		private DialogService dialogService = new DialogService();
 
 		private bool CanDeleteMember(object obj)
 		{
 			if (SelectedMember != null)
 				return true;
+
+
 			return false;
 		}
 
 		private void DeleteMember(object member)
 		{
-			memberDataService.DeleteMember(selectedMember);
+			memberDataService.DeleteMember(selectedMember.MemberId);
 
 			Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
 		}
@@ -79,6 +70,8 @@ namespace AgileApp.ViewModels
 
 		public ICommand EditCommand { get; set; }
 		public ICommand DeleteCommand { get; set; }
+		public ICommand AddCommand { get; set; }
+		public ICommand OpenAddWindowCommand { get; set; }
 
 		private void RaisePropertyChanged(string propertyName)
 		{
@@ -98,8 +91,30 @@ namespace AgileApp.ViewModels
 
 		private void LoadCommands()
 		{
-			EditCommand = new CustomCommand(EditMember, CanEditMember);
+			//EditCommand = new CustomCommand(EditMember, CanEditMember);
 			DeleteCommand = new CustomCommand(DeleteMember, CanDeleteMember);
+			AddCommand = new CustomCommand(AddMember, CanAddMember);
+			OpenAddWindowCommand = new CustomCommand(OpenAddWindow, CanAddMember);
+
+		}
+
+		private void OpenAddWindow(object obj)
+		{
+			Messenger.Default.Send<Member>(selectedMember);
+
+			dialogService.ShowAddWindow();
+		}
+
+		private bool CanAddMember(object obj)
+		{
+			return true;
+		}
+
+		private void AddMember(object obj)
+		{
+			memberDataService.AddMember(selectedMember.MemberId);
+
+			Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
 		}
 
 		private void OnUpdateListMessageReceived(UpdateListMessage obj)
@@ -108,23 +123,21 @@ namespace AgileApp.ViewModels
 			dialogService.CloseDetailDialog();
 		}
 
-		private DialogService dialogService = new DialogService();
+
 
 		private void EditMember(object obj)
 		{
-			Messenger.Default.Send<Member>(selectedMember);
+			//Messenger.Default.Send<Member>(selectedMember);
 
-			dialogService.ShowDetailDialog();
+			//dialogService.ShowDetailDialog();
 		}
 
 		private bool CanEditMember(object obj)
 		{
 			if (SelectedMember != null)
 			{
-				IsControlsEnable = true;
 				return true;
 			}
-			IsControlsEnable = false;
 			return false;
 		}
 

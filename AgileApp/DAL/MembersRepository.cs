@@ -47,11 +47,32 @@ namespace AgileApp.DAL
 				LoadMembers2();
 			return members.Where(c => c.MemberId == id).FirstOrDefault();
 		}
-		public void DeleteMember(Member member)
+
+		public void DeleteMember(int memberId)
 		{
-			members.Remove(member);
-			doc.Save("MembersSource");
+			doc.Descendants("Member").Where(x => x.Element("ID").Value == memberId.ToString()).Remove();
+			doc.Save(@"C:\Users\Kuba\source\repos\AgileApp\AgileApp\DAL\MembersSource.xml");
+			LoadMembers2();
 		}
+
+		public void AddMember(int memberId)
+		{
+			XElement root = new XElement("Member");
+			root.Add
+				(
+				new XElement("ID", "10"),
+				new XElement("Name", "10"),
+				new XElement("Description", "10"),
+				new XElement("Position", "10"),
+				new XElement("ExtraSkills", "10")
+				);
+
+			doc.Element("Members").Add(root);
+
+			doc.Save(@"C:\Users\Kuba\source\repos\AgileApp\AgileApp\DAL\MembersSource.xml");
+			LoadMembers2();
+		}
+
 
 		public void UpdateMember(Member member)
 		{
@@ -67,41 +88,41 @@ namespace AgileApp.DAL
 		{
 			doc = XDocument.Load(@"C:\Users\Kuba\source\repos\AgileApp\AgileApp\DAL\MembersSource.xml");
 
-			members = new List<Member>()
-			{
-				new Member ()
-				{
-					MemberId = 0,
-					MemberName = "nul",
-					Description ="nul",
-					ImageId = 2,
-					Position="nul",
-					ExtraSkills="nul",
-				}
-
-			};
-
-			IEnumerable<XElement> member;
+			members = new List<Member>();
+			members.Clear();
+			IEnumerable<XElement> memberProp;
+			List<string> membersIDs = new List<string>();
 
 			int membersCount = doc.Descendants("Member").Count();
+			membersIDs = doc.Descendants("Member").Select(x => x.Element("ID").Value).ToList();
 
-			for (int i = 1; i <= membersCount; i++)
+
+			for (int i = 0; i <= membersCount-1; i++)
 			{
 
-				member =
-					   (from e in doc.Descendants("Member")
-						where e.Attribute("id").Value == i.ToString()
-						select e).Descendants();
+				memberProp =
+				   (from e in doc.Descendants("Member")
+					where e.Element("ID").Value == membersIDs[i]
+					select e).Descendants();
 
-				members.Add(new Member() {
-					MemberId = i,
-					MemberName = member.ElementAt(0).Value,
-					Description = member.ElementAt(1).Value,
-					ImageId = 2,
-					Position = member.ElementAt(2).Value,
-					ExtraSkills = member.ElementAt(3).Value,
 
-				});
+				members.Add(new Member()
+					{
+						MemberId = Convert.ToInt32(membersIDs[i]),
+						MemberName = memberProp.ElementAt(1).Value,
+						Description = memberProp.ElementAt(2).Value,
+						ImageId = 2,
+						Position = memberProp.ElementAt(3).Value,
+						ExtraSkills = memberProp.ElementAt(4).Value,
+
+						//MemberId = i,
+						//MemberName = i.ToString(),
+						//Description = i.ToString(),
+						//ImageId = 2,
+						//Position = i.ToString(),
+						//ExtraSkills = i.ToString(),
+
+					});
 
 				//members = new List<Member>()
 				//{

@@ -9,7 +9,7 @@ namespace AgileApp.Services
 {
 	public interface IMemberDataService
 	{
-		void DeleteMember(Member member);
+		void DeleteMember(int memberId);
 		List<Member> GetAllMembers();
 		Member GetMemberDetail(int memberId);
 		void UpdateMember(Member member);

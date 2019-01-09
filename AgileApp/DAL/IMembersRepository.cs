@@ -9,7 +9,8 @@ namespace AgileApp.DAL
 {
 	interface IMembersRepository
 	{
-		void DeleteMember(Member member);
+		void AddMember(int memberId);
+		void DeleteMember(int memberId);
 		Member GetAMember();
 		Member GetMemberById(int id);
 		List<Member> GetMembers2();

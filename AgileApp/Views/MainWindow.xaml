@@ -59,7 +59,7 @@
             </ListView.ItemTemplate>
 
         </ListView>
-        <Grid Grid.Column="1" Margin="5" IsEnabled="{Binding IsControlsEnable}">
+        <Grid Grid.Column="1" Margin="5" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="150"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
@@ -93,6 +93,10 @@
 
             <StackPanel Grid.Row="8">
                 <Button  Command="{Binding DeleteCommand}" Content="Delete"></Button>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Grid.Row="8">
+                <Button  Command="{Binding OpenAddWindowCommand}" Content="Add member"></Button>
             </StackPanel>
 
         </Grid>
