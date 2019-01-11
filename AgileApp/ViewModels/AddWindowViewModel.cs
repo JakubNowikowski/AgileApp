@@ -25,6 +25,8 @@ namespace AgileApp.ViewModels
 
 		public ICommand SaveCommand { get; set; }
 		public ICommand DeleteCommand { get; set; }
+		public ICommand AddCommand { get; set; }
+		public ICommand Add2Command { get; set; }
 
 		private Member selectedMember;
 		public Member SelectedMember
@@ -40,14 +42,106 @@ namespace AgileApp.ViewModels
 			}
 		}
 
+		private string _newMemberId;
+		public string NewMemberId
+		{
+			get
+			{
+				return _newMemberId;
+			}
+			set
+			{
+				_newMemberId = value;
+				RaisePropertyChanged("NewMemberId");
+			}
+		}
+
+		private string _newMemberName;
+		public string NewMemberName
+		{
+			get
+			{
+				return _newMemberName;
+			}
+			set
+			{
+				_newMemberName = value;
+				RaisePropertyChanged("NewMemberName");
+			}
+		}
+
+		private string _newDescription;
+		public string NewDescription
+		{
+			get
+			{
+				return _newDescription;
+			}
+			set
+			{
+				_newDescription = value;
+				RaisePropertyChanged("NewDescription");
+			}
+		}
+
+		private string _newPosition;
+		public string NewPosition
+		{
+			get
+			{
+				return _newPosition;
+			}
+			set
+			{
+				_newPosition = value;
+				RaisePropertyChanged("NewPosition");
+			}
+		}
+
+		private string _newExtraSkills;
+		public string NewExtraSkills
+		{
+			get
+			{
+				return _newExtraSkills;
+			}
+			set
+			{
+				_newExtraSkills = value;
+				RaisePropertyChanged("NewExtraSkills");
+			}
+		}
+		
+		private string _newLabel;
+		public string NewLabel
+		{
+			get
+			{
+				return _newLabel;
+			}
+			set
+			{
+				_newLabel = value;
+				RaisePropertyChanged("NewLabel");
+			}
+		}
+
 		public AddWindowViewModel()
 		{
 			Messenger.Default.Register<Member>(this, OnMemberReceived);
 
 			SaveCommand = new CustomCommand(SaveMember, CanSaveMember);
 			DeleteCommand = new CustomCommand(DeleteMember, CanDeleteMember);
+			AddCommand = new CustomCommand(AddMember, CanSaveMember);
+			//new DelegateCommand(() => AddMemberToStackPanel(MemberName));
+			Add2Command = new CustomCommand(Add2Member, CanSaveMember);
 
 			memberDataService = new MemberDataService();
+		}
+
+		private void Add2Member(object obj)
+		{
+			NewLabel=NewMemberId;
 		}
 
 		public void OnMemberReceived(Member member)
@@ -78,5 +172,12 @@ namespace AgileApp.ViewModels
 			Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
 		}
 
+		private void AddMember(object obj)
+		{
+			memberDataService.AddMember(Convert.ToInt32(NewMemberId), NewMemberName, NewDescription,NewPosition,NewExtraSkills);
+			//memberDataService.AddMember(NewMemberId);
+
+			Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
+		}
 	}
 }

@@ -77,15 +77,17 @@
             </Grid.ColumnDefinitions>
             <Image Source="{Binding SelectedMember.ImageId, Converter={StaticResource localImageConverter}, Mode=OneWay}" Grid.Row="0"
                    Grid.ColumnSpan="2" MaxHeight="150" MaxWidth="150"></Image>
-            <Label Grid.Row="1" Content="Member name" FontWeight="Bold"></Label>
-            <Label Grid.Row="2" Content="Description" FontWeight="Bold"></Label>
-            <Label Grid.Row="3" Content="Position" FontWeight="Bold"></Label>
-            <Label Grid.Row="4" Content="Extra Skills" FontWeight="Bold"></Label>
+            <Label Grid.Row="1" Content="ID" FontWeight="Bold"></Label>
+            <Label Grid.Row="2" Content="Member name" FontWeight="Bold"></Label>
+            <Label Grid.Row="3" Content="Description" FontWeight="Bold"></Label>
+            <Label Grid.Row="4" Content="Position" FontWeight="Bold"></Label>
+            <Label Grid.Row="5" Content="Extra Skills" FontWeight="Bold"></Label>
 
-            <Label Grid.Row="1" Grid.Column="1" Content="{Binding SelectedMember.MemberName, Mode=OneWay}"></Label>
-            <Label Grid.Row="2" Grid.Column="1" Content="{Binding SelectedMember.Description, Mode=OneWay}"></Label>
-            <Label Grid.Row="3" Grid.Column="1" Content="{Binding SelectedMember.Position, Mode=OneWay}"></Label>
-            <Label Grid.Row="4" Grid.Column="1" Content="{Binding SelectedMember.ExtraSkills, Mode=OneWay}"></Label>
+            <Label Grid.Row="1" Grid.Column="1" Content="{Binding SelectedMember.MemberId, Mode=OneWay}"></Label>
+            <Label Grid.Row="2" Grid.Column="1" Content="{Binding SelectedMember.MemberName, Mode=OneWay}"></Label>
+            <Label Grid.Row="3" Grid.Column="1" Content="{Binding SelectedMember.Description, Mode=OneWay}"></Label>
+            <Label Grid.Row="4" Grid.Column="1" Content="{Binding SelectedMember.Position, Mode=OneWay}"></Label>
+            <Label Grid.Row="5" Grid.Column="1" Content="{Binding SelectedMember.ExtraSkills, Mode=OneWay}"></Label>
 
             <StackPanel Grid.Row="7">
                 <Button  Command="{Binding EditCommand}" Content="Edit Member"></Button>

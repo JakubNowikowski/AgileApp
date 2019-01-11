@@ -37,9 +37,9 @@ namespace AgileApp.Services
 			repository.DeleteMember(memberId);
 		}
 
-		public void AddMember(int memberId)
+		public void AddMember(int memberId, string memberName, string description, string position, string extraSkills)
 		{
-			repository.AddMember(memberId);
+			repository.AddMember(memberId, memberName, description, position, extraSkills);
 		}
 	}
 }

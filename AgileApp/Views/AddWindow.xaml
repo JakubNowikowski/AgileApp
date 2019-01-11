@@ -1,21 +1,54 @@
-﻿<Window x:Class="AgileApp.Views.AddWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
-      
-      Title="AddWindow" Height="350" Width="525" HorizontalAlignment="Center" VerticalAlignment="Center">
+﻿<Controls:MetroWindow x:Class="AgileApp.Views.AddWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                      Title="Add new team member" 
+                      Height="580" 
+                      Width="600"
+                      DataContext="{Binding Source={StaticResource mainViewModelLocator},  Path=AddWindowViewModel}"
+                      HorizontalAlignment="Center">
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="200"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Image Source="{Binding SelectedMember.ImageId, Converter={StaticResource localImageConverter}, Mode=OneWay}" 
+                   Grid.Row="1" Grid.ColumnSpan="2" MaxHeight="150" MaxWidth="150"></Image>
+        <Label Grid.Row="2" Content="Member ID" FontWeight="Bold"></Label>
+        <Label Grid.Row="3" Content="Member name" FontWeight="Bold"></Label>
+        <Label Grid.Row="4" Content="Description" FontWeight="Bold" VerticalAlignment="Center"></Label>
+        <Label Grid.Row="5" Content="Position" FontWeight="Bold"></Label>
+        <Label Grid.Row="6" Content="Extra Skills" FontWeight="Bold"></Label>
 
-    <Border Padding="10">
+        <!--<TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedCoffee.CoffeeId, Converter={StaticResource localDoNothingConverter}, Mode=TwoWay}"></TextBox>-->
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding NewMemberId, Mode=TwoWay, NotifyOnSourceUpdated=True}" ></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding NewMemberName, Mode=TwoWay}" ></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="1" Margin="5" Text="{Binding NewDescription, Mode=TwoWay}"></TextBox>
+        <TextBox Grid.Row="5" Grid.Column="1" Margin="5" Text="{Binding NewPosition, Mode=TwoWay}"></TextBox>
+        <TextBox Grid.Row="6" Grid.Column="1" Margin="5" Text="{Binding NewExtraSkills, Mode=TwoWay}"></TextBox>
+        <Label Grid.Row="7" Content="{Binding NewLabel, Mode=TwoWay, NotifyOnSourceUpdated=True}"> </Label>
 
-        <StackPanel Margin="50,50">
-            <RadioButton Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=rbtnProductOwner, Path=Content}" Name="rbtnProductOwner" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Product owner"/>
-            <RadioButton Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=rbtnProjectManager, Path=Content}" VerticalAlignment="Center" HorizontalAlignment="Left" Name="rbtnProjectManager" Content="Project manager"/>
-            <TextBox Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="100 10"/>
-            <TextBox Text="{Binding Test, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Command="{Binding OkCommand}" Content="OK" Margin="100 10 100 0" Height="50"/>
-            <Button Command="{Binding SetRole}" Content="Set" Margin="100 10 100 10" Height="50"/>
+        <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" >
+
+            <Button Margin="5" Content="Save coffee">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding AddCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
         </StackPanel>
-    </Border>
-</Window>
+
+    </Grid>
+</Controls:MetroWindow>

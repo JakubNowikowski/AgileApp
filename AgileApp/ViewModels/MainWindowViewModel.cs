@@ -93,7 +93,7 @@ namespace AgileApp.ViewModels
 		{
 			//EditCommand = new CustomCommand(EditMember, CanEditMember);
 			DeleteCommand = new CustomCommand(DeleteMember, CanDeleteMember);
-			AddCommand = new CustomCommand(AddMember, CanAddMember);
+			//AddCommand = new CustomCommand(AddMember, CanAddMember);
 			OpenAddWindowCommand = new CustomCommand(OpenAddWindow, CanAddMember);
 
 		}
@@ -110,12 +110,12 @@ namespace AgileApp.ViewModels
 			return true;
 		}
 
-		private void AddMember(object obj)
-		{
-			memberDataService.AddMember(selectedMember.MemberId);
+		//private void AddMember(object obj)
+		//{
+		//	memberDataService.AddMember(selectedMember.MemberId);
 
-			Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
-		}
+		//	Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
+		//}
 
 		private void OnUpdateListMessageReceived(UpdateListMessage obj)
 		{

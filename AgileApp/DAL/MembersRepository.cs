@@ -55,16 +55,16 @@ namespace AgileApp.DAL
 			LoadMembers2();
 		}
 
-		public void AddMember(int memberId)
+		public void AddMember(int memberId, string memberName, string description, string position, string extraSkills)
 		{
 			XElement root = new XElement("Member");
 			root.Add
 				(
-				new XElement("ID", "10"),
-				new XElement("Name", "10"),
-				new XElement("Description", "10"),
-				new XElement("Position", "10"),
-				new XElement("ExtraSkills", "10")
+				new XElement("ID", memberId.ToString()),
+				new XElement("Name", memberName),
+				new XElement("Description", description),
+				new XElement("Position", position),
+				new XElement("ExtraSkills", extraSkills)
 				);
 
 			doc.Element("Members").Add(root);
