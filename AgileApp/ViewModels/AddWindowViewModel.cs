@@ -42,8 +42,8 @@ namespace AgileApp.ViewModels
 			}
 		}
 
-		private string _newMemberId;
-		public string NewMemberId
+		private int _newMemberId;
+		public int NewMemberId
 		{
 			get
 			{
@@ -130,7 +130,7 @@ namespace AgileApp.ViewModels
 		{
 			Messenger.Default.Register<Member>(this, OnMemberReceived);
 
-			SaveCommand = new CustomCommand(SaveMember, CanSaveMember);
+			//SaveCommand = new CustomCommand(SaveMember, CanSaveMember);
 			DeleteCommand = new CustomCommand(DeleteMember, CanDeleteMember);
 			AddCommand = new CustomCommand(AddMember, CanSaveMember);
 			//new DelegateCommand(() => AddMemberToStackPanel(MemberName));
@@ -141,7 +141,9 @@ namespace AgileApp.ViewModels
 
 		private void Add2Member(object obj)
 		{
-			NewLabel=NewMemberId;
+			NewMemberId += 1;
+
+			NewLabel=NewMemberId.ToString();
 		}
 
 		public void OnMemberReceived(Member member)
@@ -166,15 +168,15 @@ namespace AgileApp.ViewModels
 			return true;
 		}
 
-		private void SaveMember(object member)
-		{
-			memberDataService.UpdateMember(selectedMember);
-			Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
-		}
+		//private void SaveMember(object member)
+		//{
+		//	memberDataService.UpdateMember(selectedMember);
+		//	Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
+		//}
 
 		private void AddMember(object obj)
 		{
-			memberDataService.AddMember(Convert.ToInt32(NewMemberId), NewMemberName, NewDescription,NewPosition,NewExtraSkills);
+			memberDataService.AddMember(NewMemberId, NewMemberName, NewDescription,NewPosition,NewExtraSkills);
 			//memberDataService.AddMember(NewMemberId);
 
 			Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());

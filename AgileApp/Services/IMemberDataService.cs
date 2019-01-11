@@ -12,6 +12,6 @@ namespace AgileApp.Services
 		void DeleteMember(int memberId);
 		List<Member> GetAllMembers();
 		Member GetMemberDetail(int memberId);
-		void UpdateMember(Member member);
+		void UpdateMember(Member member, string description, string position, string extraSkills);
 	}
 }

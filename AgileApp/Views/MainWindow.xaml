@@ -32,7 +32,8 @@
         <ListView Grid.Column="0" Margin="1,50,0,0" 
                   Name="MemberListView" 
                   ItemsSource="{Binding Members}" 
-                  SelectedItem="{Binding SelectedMember}">
+                  SelectedItem="{Binding SelectedMember}"
+                  IsEnabled="{Binding LabelsVisibility2}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="#CCCCCC" BorderThickness="0" >
@@ -70,6 +71,7 @@
                 <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"></ColumnDefinition>
@@ -85,20 +87,28 @@
 
             <Label Grid.Row="1" Grid.Column="1" Content="{Binding SelectedMember.MemberId, Mode=OneWay}"></Label>
             <Label Grid.Row="2" Grid.Column="1" Content="{Binding SelectedMember.MemberName, Mode=OneWay}"></Label>
-            <Label Grid.Row="3" Grid.Column="1" Content="{Binding SelectedMember.Description, Mode=OneWay}"></Label>
-            <Label Grid.Row="4" Grid.Column="1" Content="{Binding SelectedMember.Position, Mode=OneWay}"></Label>
-            <Label Grid.Row="5" Grid.Column="1" Content="{Binding SelectedMember.ExtraSkills, Mode=OneWay}"></Label>
+            <Label Grid.Row="3" Grid.Column="1" Visibility="{Binding LabelsVisibility}" Content="{Binding SelectedMember.Description, Mode=OneWay}"></Label>
+            <Label Grid.Row="4" Grid.Column="1" Visibility="{Binding LabelsVisibility}" Content="{Binding SelectedMember.Position, Mode=OneWay}"></Label>
+            <Label Grid.Row="5" Grid.Column="1" Visibility="{Binding LabelsVisibility}" Content="{Binding SelectedMember.ExtraSkills, Mode=OneWay}"></Label>
+
+            <TextBox Grid.Row="3" Grid.Column="1" Visibility="{Binding TextBoxesVisibility}" Text="{Binding NewDescription, Mode=TwoWay, NotifyOnSourceUpdated=True}"></TextBox>
+            <TextBox Grid.Row="4" Grid.Column="1" Visibility="{Binding TextBoxesVisibility}" Text="{Binding NewPosition, Mode=TwoWay, NotifyOnSourceUpdated=True}"></TextBox>
+            <TextBox Grid.Row="5" Grid.Column="1" Visibility="{Binding TextBoxesVisibility}" Text="{Binding NewExtraSkills, Mode=TwoWay, NotifyOnSourceUpdated=True}"></TextBox>
 
             <StackPanel Grid.Row="7">
                 <Button  Command="{Binding EditCommand}" Content="Edit Member"></Button>
             </StackPanel>
-
-            <StackPanel Grid.Row="8">
-                <Button  Command="{Binding DeleteCommand}" Content="Delete"></Button>
+            
+            <StackPanel Grid.Column="1" Grid.Row="7">
+                <Button  Command="{Binding SaveCommand}" Visibility="{Binding TextBoxesVisibility}" Content="Save"></Button>
             </StackPanel>
 
-            <StackPanel Grid.Column="1" Grid.Row="8">
-                <Button  Command="{Binding OpenAddWindowCommand}" Content="Add member"></Button>
+            <StackPanel Grid.Row="9">
+                <Button  Command="{Binding DeleteCommand}" Visibility="{Binding LabelsVisibility}" Content="Delete"></Button>
+            </StackPanel>
+
+            <StackPanel Grid.Row="8">
+                <Button  Command="{Binding OpenAddWindowCommand}" Visibility="{Binding LabelsVisibility}" Content="Add member"></Button>
             </StackPanel>
 
         </Grid>

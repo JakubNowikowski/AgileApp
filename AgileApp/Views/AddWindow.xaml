@@ -32,7 +32,7 @@
         <Label Grid.Row="6" Content="Extra Skills" FontWeight="Bold"></Label>
 
         <!--<TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedCoffee.CoffeeId, Converter={StaticResource localDoNothingConverter}, Mode=TwoWay}"></TextBox>-->
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding NewMemberId, Mode=TwoWay, NotifyOnSourceUpdated=True}" ></TextBox>
+        <Label Grid.Row="2" Grid.Column="1" Margin="5" Content="{Binding NewMemberId, Mode=TwoWay, NotifyOnSourceUpdated=True}" ></Label>
         <TextBox Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding NewMemberName, Mode=TwoWay}" ></TextBox>
         <TextBox Grid.Row="4" Grid.Column="1" Margin="5" Text="{Binding NewDescription, Mode=TwoWay}"></TextBox>
         <TextBox Grid.Row="5" Grid.Column="1" Margin="5" Text="{Binding NewPosition, Mode=TwoWay}"></TextBox>

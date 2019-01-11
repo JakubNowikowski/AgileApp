@@ -68,8 +68,93 @@ namespace AgileApp.ViewModels
 			}
 		}
 
+		private string _newDescription;
+		public string NewDescription
+		{
+			get
+			{
+				return _newDescription;
+			}
+			set
+			{
+				_newDescription = value;
+				RaisePropertyChanged("NewDescription");
+			}
+		}
+
+		private string _newPosition;
+		public string NewPosition
+		{
+			get
+			{
+				return _newPosition;
+			}
+			set
+			{
+				_newPosition = value;
+				RaisePropertyChanged("NewPosition");
+			}
+		}
+
+		private string _newExtraSkills;
+		public string NewExtraSkills
+		{
+			get
+			{
+				return _newExtraSkills;
+			}
+			set
+			{
+				_newExtraSkills = value;
+				RaisePropertyChanged("NewExtraSkills");
+			}
+		}
+
+		private string _labelsVisibility;
+		public string LabelsVisibility
+		{
+			get
+			{
+				return _labelsVisibility;
+			}
+			set
+			{
+				_labelsVisibility = value;
+				RaisePropertyChanged("LabelsVisibility");
+			}
+		}
+
+		private string _labelsVisibility2;
+		public string LabelsVisibility2
+		{
+			get
+			{
+				return _labelsVisibility2;
+			}
+			set
+			{
+				_labelsVisibility2 = value;
+				RaisePropertyChanged("LabelsVisibility2");
+			}
+		}
+
+
+		private string _textBoxesVisibility;
+		public string TextBoxesVisibility
+		{
+			get
+			{
+				return _textBoxesVisibility;
+			}
+			set
+			{
+				_textBoxesVisibility = value;
+				RaisePropertyChanged("TextBoxesVisibility");
+			}
+		}
 		public ICommand EditCommand { get; set; }
 		public ICommand DeleteCommand { get; set; }
+		public ICommand SaveCommand { get; set; }
 		public ICommand AddCommand { get; set; }
 		public ICommand OpenAddWindowCommand { get; set; }
 
@@ -84,15 +169,27 @@ namespace AgileApp.ViewModels
 			memberDataService = new MemberDataService();
 			LoadData();
 
+			//NewDescription = selectedMember.Description;
+			//NewPosition = selectedMember.Position;
+			//NewExtraSkills = selectedMember.ExtraSkills;
+
+
+
 			LoadCommands();
+
+			TextBoxesVisibility = "Hidden";
+			LabelsVisibility = "Visible";
+			LabelsVisibility2 = "True";
+			//selectedMember.MemberId = 1;
 
 			Messenger.Default.Register<UpdateListMessage>(this, OnUpdateListMessageReceived);
 		}
 
 		private void LoadCommands()
 		{
-			//EditCommand = new CustomCommand(EditMember, CanEditMember);
+			EditCommand = new CustomCommand(EditMember, CanEditMember);
 			DeleteCommand = new CustomCommand(DeleteMember, CanDeleteMember);
+			SaveCommand = new CustomCommand(SaveMember, CanDeleteMember);
 			//AddCommand = new CustomCommand(AddMember, CanAddMember);
 			OpenAddWindowCommand = new CustomCommand(OpenAddWindow, CanAddMember);
 
@@ -120,16 +217,29 @@ namespace AgileApp.ViewModels
 		private void OnUpdateListMessageReceived(UpdateListMessage obj)
 		{
 			LoadData();
-			dialogService.CloseDetailDialog();
 		}
 
+		private void SaveMember(object member)
+		{
+			memberDataService.UpdateMember(selectedMember, NewDescription, NewPosition, NewExtraSkills);
+			Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
 
+			TextBoxesVisibility = "Hidden";
+			LabelsVisibility = "Visible";
+			LabelsVisibility2 = "True";
+			//Messenger.Default.Send<Member>(selectedMember);
+		}
 
 		private void EditMember(object obj)
 		{
-			//Messenger.Default.Send<Member>(selectedMember);
+			NewDescription = selectedMember.Description;
+			NewPosition = selectedMember.Position;
+			NewExtraSkills = selectedMember.ExtraSkills;
 
-			//dialogService.ShowDetailDialog();
+			LabelsVisibility = "Hidden";
+			TextBoxesVisibility = "Visible";
+			LabelsVisibility2 = "False";
+			//Messenger.Default.Send<Member>(selectedMember);
 		}
 
 		private bool CanEditMember(object obj)
