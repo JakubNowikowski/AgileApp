@@ -6,7 +6,7 @@
                       Title="Add new team member" 
                       Height="580" 
                       Width="600"
-                      DataContext="{Binding Source={StaticResource mainViewModelLocator},  Path=AddWindowViewModel}"
+                      DataContext="{Binding Source={StaticResource ViewModelLocator},  Path=AddWindowViewModel}"
                       HorizontalAlignment="Center">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
@@ -41,7 +41,7 @@
 
         <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" >
 
-            <Button Margin="5" Content="Save coffee">
+            <Button Margin="5" Content="Save" Width="100">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <i:InvokeCommandAction Command="{Binding AddCommand}"/>

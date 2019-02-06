@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using AgileApp.Models;
 
 namespace AgileApp.DAL
 {
-	class MembersRepository : IMembersRepository
+    class MembersRepository : IMembersRepository
 	{
 		IEnumerable<XElement> memberProp;
 		List<string> membersIDs = new List<string>();
@@ -55,7 +53,7 @@ namespace AgileApp.DAL
 			doc.Descendants("Member").Where(x => x.Element("ID").Value == memberId.ToString()).Remove();
 
 
-			doc.Save(@"C:\Users\Kuba\source\repos\AgileApp\AgileApp\DAL\MembersSource.xml");
+			doc.Save(@"C:\Users\kuban\source\repos\AgileApp\AgileApp\DAL\MembersSource.xml");
 			LoadMembers2();
 		}
 
@@ -94,7 +92,7 @@ namespace AgileApp.DAL
 
 			doc.Element("Members").Add(root);
 
-			doc.Save(@"C:\Users\Kuba\source\repos\AgileApp\AgileApp\DAL\MembersSource.xml");
+			doc.Save(@"C:\Users\kuban\source\repos\AgileApp\AgileApp\DAL\MembersSource.xml");
 			LoadMembers2();
 		}
 
@@ -102,7 +100,6 @@ namespace AgileApp.DAL
 		{
 			//Member memberToUpdate = members.Where(c => c.MemberId == member.MemberId).FirstOrDefault();
 			//memberToUpdate = member;
-
 
 			memberProp =
 					   from e in doc.Descendants("Member")
@@ -115,7 +112,7 @@ namespace AgileApp.DAL
 				item.SetElementValue("Position", position);
 				item.SetElementValue("ExtraSkills", extraSkills);
 			}
-			doc.Save(@"C:\Users\Kuba\source\repos\AgileApp\AgileApp\DAL\MembersSource.xml");
+			doc.Save(@"C:\Users\kuban\source\repos\AgileApp\AgileApp\DAL\MembersSource.xml");
 
 			LoadMembers2();
 		}
@@ -126,7 +123,7 @@ namespace AgileApp.DAL
 
 		private void LoadMembers2()
 		{
-			doc = XDocument.Load(@"C:\Users\Kuba\source\repos\AgileApp\AgileApp\DAL\MembersSource.xml");
+			doc = XDocument.Load(@"C:\Users\kuban\source\repos\AgileApp\AgileApp\DAL\MembersSource.xml");
 
 			members = new List<Member>();
 			members.Clear();
@@ -152,93 +149,8 @@ namespace AgileApp.DAL
 					ImageId = 2,
 					Position = memberProp.ElementAt(3).Value,
 					ExtraSkills = memberProp.ElementAt(4).Value,
-
-					//MemberId = i,
-					//MemberName = i.ToString(),
-					//Description = i.ToString(),
-					//ImageId = 2,
-					//Position = i.ToString(),
-					//ExtraSkills = i.ToString(),
-
 				});
-
-
-				//members = new List<Member>()
-				//{
-				//	new Member ()
-				//	{
-				//		MemberId = i,
-				//		MemberName = member.ElementAt(0).Value,
-				//		Description =member.ElementAt(1).Value,
-				//		ImageId = 2,
-				//		Position=member.ElementAt(2).Value,
-				//		ExtraSkills=member.ElementAt(3).Value,
-				//	}
-
-				//};
-
 			}
-
-
-
-			//members = new List<Member>()
-			//{
-			//	new Member ()
-			//	{
-			//		MemberId = 1,
-			//		MemberName = member.ElementAt(0).Value,
-			//		Description = "User1 description",
-			//		ImageId = 2,
-			//		Position="Junior .NET Developer",
-			//		ExtraSkills="Testing",
-			//	},
-			//	new Member ()
-			//	{
-			//		MemberId = 2,
-			//		MemberName = "User2",
-			//		Description = "User2 description",
-			//		ImageId = 2,
-			//		Position="Java, Python Developer",
-			//		ExtraSkills ="PiWeb",
-			//	},
-			//	new Member ()
-			//	{
-			//		MemberId = 3,
-			//		MemberName = "User3",
-			//		Description = "User3 description",
-			//		ImageId = 2,
-			//		Position="Tester, .NET Developer",
-			//		ExtraSkills="AI Specialist",
-			//	},
-			//	new Member ()
-			//	{
-			//		MemberId = 4,
-			//		MemberName = "User4",
-			//		Description = "User4 description",
-			//		ImageId = 2,
-			//		Position="Junior .NET Developer",
-			//		ExtraSkills="Testing",
-			//	},
-			//	new Member ()
-			//	{
-			//		MemberId = 5,
-			//		MemberName = "User5",
-			//		Description = "User5 description",
-			//		ImageId = 2,
-			//		Position="Java, Python Developer",
-			//		ExtraSkills ="PiWeb",
-			//	},
-			//	new Member ()
-			//	{
-			//		MemberId = 6,
-			//		MemberName = "User6",
-			//		Description = "User6 description",
-			//		ImageId = 2,
-			//		Position="Tester, .NET Developer",
-			//		ExtraSkills="AI Specialist",
-			//	}
-			//};
-
 		}
 	}
 }

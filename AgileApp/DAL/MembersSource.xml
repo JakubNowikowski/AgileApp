@@ -1,52 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Members>
   <Member>
-    <ID>1</ID>
-    <Name />
-    <Description>xd</Description>
-    <Position>xxxxxxxxxxxxxxxxxx</Position>
-    <ExtraSkills>xxxxxxxxxxxxxxxxxxxx</ExtraSkills>
+    <ID>3</ID>
+    <Name>Tom</Name>
+    <Description>Senior c# developer</Description>
+    <Position>Scrum master</Position>
+    <ExtraSkills>machine vision</ExtraSkills>
   </Member>
   <Member>
     <ID>2</ID>
-    <Name>wsb</Name>
-    <Description>lkjyhfkutf5654654564</Description>
-    <Position>65465465xxxxxxxxxxxxxxxxxx</Position>
-    <ExtraSkills>654654654654564564x</ExtraSkills>
-  </Member>
-  <Member>
-    <ID>3</ID>
-    <Name>wsb</Name>
-    <Description>xd</Description>
-    <Position>xxxxxxxxxxxxxxxxxx99999999</Position>
-    <ExtraSkills>xxxxxxxxxxxxxxxxxxxx</ExtraSkills>
-  </Member>
-  <Member>
-    <ID>6</ID>
-    <Name />
-    <Description>xd</Description>
-    <Position>xd</Position>
-    <ExtraSkills>xd</ExtraSkills>
+    <Name>Bob</Name>
+    <Description>Senior c# developer</Description>
+    <Position>Product owner</Position>
+    <ExtraSkills>machine vision</ExtraSkills>
   </Member>
   <Member>
     <ID>4</ID>
-    <Name />
-    <Description>513</Description>
-    <Position>856</Position>
-    <ExtraSkills>684</ExtraSkills>
-  </Member>
-  <Member>
-    <ID>5</ID>
-    <Name />
-    <Description />
-    <Position />
-    <ExtraSkills />
-  </Member>
-  <Member>
-    <ID>7</ID>
-    <Name />
-    <Description />
-    <Position />
-    <ExtraSkills />
+    <Name>Mike</Name>
+    <Description>Senior c# developer</Description>
+    <Position>Architect</Position>
+    <ExtraSkills>machine vision</ExtraSkills>
   </Member>
 </Members>

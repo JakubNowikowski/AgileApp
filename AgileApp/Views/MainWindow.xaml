@@ -5,7 +5,7 @@
                       Title="Agile manager" 
                       Height="480" 
                       Width="1310"
-                      DataContext="{Binding Source={StaticResource mainViewModelLocator},  Path=MainWindowViewModel}"
+                      DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=MainWindowViewModel}"
                       HorizontalAlignment="Center"
                       >
 
@@ -29,7 +29,7 @@
 
         <Label Grid.Column="0" Content="Team members" FontSize="30" HorizontalAlignment="Center" />
 
-        <ListView Grid.Column="0" Margin="1,50,0,0" 
+        <ListView Grid.Column="0" Margin="1,50,0,0" BorderBrush="CornflowerBlue" 
                   Name="MemberListView" 
                   ItemsSource="{Binding Members}" 
                   SelectedItem="{Binding SelectedMember}"
@@ -58,7 +58,6 @@
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
-
         </ListView>
         <Grid Grid.Column="1" Margin="5" >
             <Grid.RowDefinitions>
@@ -98,7 +97,7 @@
             <StackPanel Grid.Row="7">
                 <Button  Command="{Binding EditCommand}" Content="Edit Member"></Button>
             </StackPanel>
-            
+
             <StackPanel Grid.Column="1" Grid.Row="7">
                 <Button  Command="{Binding SaveCommand}" Visibility="{Binding TextBoxesVisibility}" Content="Save"></Button>
             </StackPanel>
@@ -110,32 +109,56 @@
             <StackPanel Grid.Row="8">
                 <Button  Command="{Binding OpenAddWindowCommand}" Visibility="{Binding LabelsVisibility}" Content="Add member"></Button>
             </StackPanel>
-
         </Grid>
         <!--borders-->
 
-        <Border Grid.Column="2" Margin="0, 40" BorderBrush="CornflowerBlue" 
+        <Border Grid.Column="2" Margin="0, 50" BorderBrush="CornflowerBlue" 
         BorderThickness="1,0,0,0" Background="{x:Null}" />
-        <Border Grid.Column="3" Margin="0, 40" BorderBrush="CornflowerBlue" 
+        <Border Grid.Column="3" Margin="0, 50" BorderBrush="CornflowerBlue" 
         BorderThickness="1,0,0,0" Background="{x:Null}" />
-        <Border Grid.Column="4" Margin="0, 40" BorderBrush="CornflowerBlue" 
+        <Border Grid.Column="4" Margin="0, 50" BorderBrush="CornflowerBlue" 
         BorderThickness="1,0,0,0" Background="{x:Null}" />
-        <Border Grid.Column="5" Margin="0, 40" BorderBrush="CornflowerBlue" 
+        <Border Grid.Column="5" Margin="0, 50" BorderBrush="CornflowerBlue" 
         BorderThickness="1,0,0,0" Background="{x:Null}" />
-        <Border Grid.Column="6" Margin="0, 40" BorderBrush="CornflowerBlue" 
+        <Border Grid.Column="6" Margin="0, 50" BorderBrush="CornflowerBlue" 
         BorderThickness="1,0,0,0" Background="{x:Null}" />
 
         <!--All members-->
 
         <!--Product owner-->
         <Label Grid.Column="2" HorizontalAlignment="Center" >
-            <TextBlock Text="Product owner" Margin="0,10" FontSize="15" TextWrapping="Wrap"/>
+                <TextBlock Text="Product owner" Margin="0,10" FontSize="15" TextWrapping="Wrap"/>
         </Label>
 
-        <StackPanel Name="stkpnlProductOwner" Grid.Column="2" Margin="0 50 0 0">
-            <!--Dynamic textblocks-->
+        <ListView Background="Transparent" BorderThickness="0" Grid.Column="2" Margin="1,50,0,0" 
+                  Name="ProductOwnerListView" 
+                  ItemsSource="{Binding Members}" 
+                  SelectedItem="{Binding SelectedMember}"
+                  IsEnabled="{Binding LabelsVisibility2}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="#CCCCCC" BorderThickness="0" >
+                        <Grid Background="{Binding MemberName}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition Height="30"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Image Source="{Binding ImageId, Converter={StaticResource localImageConverter}}" Grid.RowSpan="2" VerticalAlignment="Center"></Image>
+                            <Label Content="{Binding MemberName}" FontSize="14" Grid.Row="2" FontWeight="Bold" HorizontalAlignment="Center"></Label>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+        <!--<StackPanel Name="stkpnlProductOwner" Grid.Column="2" Margin="0 50 0 0">
+            -->
+        <!--Dynamic textblocks-->
+        <!--
         </StackPanel>
-        <Button Command="{Binding ClearStkpnlProductOwner}" Content="Clear" Grid.Column="2" Margin="0 20 0 0 " Width="40" Height="20" VerticalAlignment="Bottom"/>
+        <Button Command="{Binding ClearStkpnlProductOwner}" Content="Clear" Grid.Column="2" Margin="0 20 0 0 " Width="40" Height="20" VerticalAlignment="Bottom"/>-->
 
         <!--Project manager-->
 

@@ -6,7 +6,7 @@
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <local:ViewModelLocator x:Key="mainViewModelLocator"></local:ViewModelLocator>
+            <local:ViewModelLocator x:Key="ViewModelLocator"></local:ViewModelLocator>
             <converter:ImageConverter x:Key="localImageConverter"></converter:ImageConverter>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
