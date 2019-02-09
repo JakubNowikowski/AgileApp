@@ -23,15 +23,8 @@ namespace AgileApp.DAL
 		public Member GetAMember()
 		{
 			if (members == null)
-				LoadMembers2();
+				LoadMembers();
 			return members.FirstOrDefault();
-		}
-
-		public List<Member> GetMembers2()
-		{
-			if (members == null)
-				LoadMembers2();
-			return members;
 		}
 
 		public List<Member> GetMembers()
@@ -44,7 +37,7 @@ namespace AgileApp.DAL
 		public Member GetMemberById(int id)
 		{
 			if (members == null)
-				LoadMembers2();
+				LoadMembers();
 			return members.Where(c => c.MemberId == id).FirstOrDefault();
 		}
 
@@ -54,10 +47,10 @@ namespace AgileApp.DAL
 
 
 			doc.Save(@"C:\Users\kuban\source\repos\AgileApp\AgileApp\DAL\MembersSource.xml");
-			LoadMembers2();
+			LoadMembers();
 		}
 
-		public void AddMember(int memberId, string memberName, string description, string position, string extraSkills)
+        public void AddMember(int memberId, string memberName, string description, string position, string extraSkills)
 		{
 			List<int> membersIDs = new List<int>();
 
@@ -93,14 +86,11 @@ namespace AgileApp.DAL
 			doc.Element("Members").Add(root);
 
 			doc.Save(@"C:\Users\kuban\source\repos\AgileApp\AgileApp\DAL\MembersSource.xml");
-			LoadMembers2();
+			LoadMembers();
 		}
 
 		public void UpdateMember(Member member,string description, string position, string extraSkills)
 		{
-			//Member memberToUpdate = members.Where(c => c.MemberId == member.MemberId).FirstOrDefault();
-			//memberToUpdate = member;
-
 			memberProp =
 					   from e in doc.Descendants("Member")
 					   where e.Element("ID").Value == member.MemberId.ToString()
@@ -114,20 +104,15 @@ namespace AgileApp.DAL
 			}
 			doc.Save(@"C:\Users\kuban\source\repos\AgileApp\AgileApp\DAL\MembersSource.xml");
 
-			LoadMembers2();
+			LoadMembers();
 		}
 
 		private void LoadMembers()
-		{
-		}
-
-		private void LoadMembers2()
 		{
 			doc = XDocument.Load(@"C:\Users\kuban\source\repos\AgileApp\AgileApp\DAL\MembersSource.xml");
 
 			members = new List<Member>();
 			members.Clear();
-			
 
 			int membersCount = doc.Descendants("Member").Count();
 			membersIDs = doc.Descendants("Member").Select(x => x.Element("ID").Value).ToList();

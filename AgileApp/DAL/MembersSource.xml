@@ -21,4 +21,11 @@
     <Position>Architect</Position>
     <ExtraSkills>machine vision</ExtraSkills>
   </Member>
+  <Member>
+    <ID>5</ID>
+    <Name>bobo</Name>
+    <Description></Description>
+    <Position>Product owner</Position>
+    <ExtraSkills></ExtraSkills>
+  </Member>
 </Members>

@@ -8,178 +8,130 @@ using AgileApp.Services;
 using AgileApp.Models;
 using AgileApp.Utility;
 using AgileApp.Messages;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace AgileApp.ViewModels
 {
-	public class AddWindowViewModel : INotifyPropertyChanged
-	{
-		private MemberDataService memberDataService;
-		public event PropertyChangedEventHandler PropertyChanged;
+    public class AddWindowViewModel : INotifyPropertyChanged
+    {
+        #region Properties
 
+        private Member selectedMember;
+        public Member SelectedMember
+        {
+            get => selectedMember;
+            set { selectedMember = value; RaisePropertyChanged("SelectedMember"); }
+        }
 
-		private void RaisePropertyChanged(string propertyName)
-		{
-			if (PropertyChanged != null)
-				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
+        private int _newMemberId;
+        public int NewMemberId
+        {
+            get => _newMemberId; set { _newMemberId = value; RaisePropertyChanged("NewMemberId"); }
+        }
 
-		public ICommand SaveCommand { get; set; }
-		public ICommand DeleteCommand { get; set; }
-		public ICommand AddCommand { get; set; }
-		public ICommand Add2Command { get; set; }
+        private string _newMemberName;
+        public string NewMemberName
+        {
+            get => _newMemberName; set { _newMemberName = value; RaisePropertyChanged("NewMemberName"); }
+        }
 
-		private Member selectedMember;
-		public Member SelectedMember
-		{
-			get
-			{
-				return selectedMember;
-			}
-			set
-			{
-				selectedMember = value;
-				RaisePropertyChanged("SelectedMember");
-			}
-		}
+        private string _newDescription;
+        public string NewDescription
+        {
+            get => _newDescription;
+            set { _newDescription = value; RaisePropertyChanged("NewDescription"); }
+        }
 
-		private int _newMemberId;
-		public int NewMemberId
-		{
-			get
-			{
-				return _newMemberId;
-			}
-			set
-			{
-				_newMemberId = value;
-				RaisePropertyChanged("NewMemberId");
-			}
-		}
+        private string _newPosition;
+        public string NewPosition
+        {
+            get => _newPosition;
+            set { _newPosition = value; RaisePropertyChanged("NewPosition"); }
+        }
 
-		private string _newMemberName;
-		public string NewMemberName
-		{
-			get
-			{
-				return _newMemberName;
-			}
-			set
-			{
-				_newMemberName = value;
-				RaisePropertyChanged("NewMemberName");
-			}
-		}
+        private List<string> _position;
+        public List<string> Positions
+        {
+            get => new List<string>(){"Product owner",
+            "Project manager",
+            "Scrum master",
+            "Architect",
+            "Dev team" };
+            set => _position = value;
+        }
 
-		private string _newDescription;
-		public string NewDescription
-		{
-			get
-			{
-				return _newDescription;
-			}
-			set
-			{
-				_newDescription = value;
-				RaisePropertyChanged("NewDescription");
-			}
-		}
+        private string _newExtraSkills;
+        public string NewExtraSkills
+        {
+            get => _newExtraSkills; set { _newExtraSkills = value; RaisePropertyChanged("NewExtraSkills"); }
+        }
 
-		private string _newPosition;
-		public string NewPosition
-		{
-			get
-			{
-				return _newPosition;
-			}
-			set
-			{
-				_newPosition = value;
-				RaisePropertyChanged("NewPosition");
-			}
-		}
+        private string _newLabel;
+        public string NewLabel
+        {
+            get => _newLabel; set { _newLabel = value; RaisePropertyChanged("NewLabel"); }
+        }
 
-		private string _newExtraSkills;
-		public string NewExtraSkills
-		{
-			get
-			{
-				return _newExtraSkills;
-			}
-			set
-			{
-				_newExtraSkills = value;
-				RaisePropertyChanged("NewExtraSkills");
-			}
-		}
-		
-		private string _newLabel;
-		public string NewLabel
-		{
-			get
-			{
-				return _newLabel;
-			}
-			set
-			{
-				_newLabel = value;
-				RaisePropertyChanged("NewLabel");
-			}
-		}
+        #endregion
+        
+        public ICommand SaveCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
+        public ICommand AddCommand { get; set; }
+        public ICommand Add2Command { get; set; }
 
-		public AddWindowViewModel()
-		{
-			Messenger.Default.Register<Member>(this, OnMemberReceived);
+        private MemberDataService memberDataService;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-			//SaveCommand = new CustomCommand(SaveMember, CanSaveMember);
-			DeleteCommand = new CustomCommand(DeleteMember, CanDeleteMember);
-			AddCommand = new CustomCommand(AddMember, CanSaveMember);
-			//new DelegateCommand(() => AddMemberToStackPanel(MemberName));
-			Add2Command = new CustomCommand(Add2Member, CanSaveMember);
+        public AddWindowViewModel()
+        {
+            Messenger.Default.Register<Member>(this, OnMemberReceived);
 
-			memberDataService = new MemberDataService();
-		}
+            DeleteCommand = new CustomCommand(DeleteMember, CanDeleteMember);
+            AddCommand = new CustomCommand(AddMember, CanSaveMember);
+            Add2Command = new CustomCommand(Add2Member, CanSaveMember);
+            memberDataService = new MemberDataService();
+        }
 
-		private void Add2Member(object obj)
-		{
-			NewMemberId += 1;
+        private void Add2Member(object obj)
+        {
+            NewMemberId += 1;
 
-			NewLabel=NewMemberId.ToString();
-		}
+            NewLabel = NewMemberId.ToString();
+        }
 
-		public void OnMemberReceived(Member member)
-		{
-			SelectedMember = member;
-		}
+        public void OnMemberReceived(Member member)
+        {
+            SelectedMember = member;
+        }
 
-		private bool CanDeleteMember(object obj)
-		{
-			return true;
-		}
+        private bool CanDeleteMember(object obj)
+        {
+            return true;
+        }
 
-		private void DeleteMember(object memberId)
-		{
-			memberDataService.DeleteMember(selectedMember.MemberId);
+        private void DeleteMember(object memberId)
+        {
+            memberDataService.DeleteMember(selectedMember.MemberId);
 
-			Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
-		}
+            Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
+        }
 
-		private bool CanSaveMember(object obj)
-		{
-			return true;
-		}
+        private bool CanSaveMember(object obj)
+        {
+            return true;
+        }
 
-		//private void SaveMember(object member)
-		//{
-		//	memberDataService.UpdateMember(selectedMember);
-		//	Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
-		//}
+        private void AddMember(object obj)
+        {
+            memberDataService.AddMember(NewMemberId, NewMemberName, NewDescription, NewPosition, NewExtraSkills);
+            Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
+        }
 
-		private void AddMember(object obj)
-		{
-			memberDataService.AddMember(NewMemberId, NewMemberName, NewDescription,NewPosition,NewExtraSkills);
-			//memberDataService.AddMember(NewMemberId);
-
-			Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
-		}
-	}
+        private void RaisePropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
 }

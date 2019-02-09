@@ -13,7 +13,6 @@ namespace AgileApp.DAL
 		void DeleteMember(int memberId);
 		Member GetAMember();
 		Member GetMemberById(int id);
-		List<Member> GetMembers2();
 		List<Member> GetMembers();
 		void UpdateMember(Member member, string description, string position, string extraSkills);
 	}

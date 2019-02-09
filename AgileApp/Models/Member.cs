@@ -15,68 +15,35 @@ namespace AgileApp.Models
 
         public int MemberId
         {
-            get
-            {
-                return memberId;
-            }
-            set
-            {
-                memberId = value;
-                RaisePropertyChanged("MemberId");
-            }
+            get => memberId;
+            set { memberId = value; RaisePropertyChanged("MemberId"); }
         }
 
         public string MemberName
         {
-            get
-            {
-                return memberName;
-            }
-            set
-            {
-                memberName = value;
-                RaisePropertyChanged("MemberName");
-            }
+            get => memberName;
+            set { memberName = value; RaisePropertyChanged("MemberName"); }
         }
 
-        public string Description
-        {
-            get;
-            set;
-        }
+        public string Description { get; set; }
 
-        public string Position
-        {
-            get;
-            set;
-        }
+        public string Position { get; set; }
 
         public string ExtraSkills
         {
-            get
-            {
-                return extraSkills;
-            }
-            set
-            {
-                extraSkills = value;
-                RaisePropertyChanged("ExtraSkills");
-            }
+            get => extraSkills;
+            set { extraSkills = value; RaisePropertyChanged("ExtraSkills"); }
         }
 
+        public int ImageId { get; set; }
 
-        public int ImageId
-        {
-            get;
-            set;
-        }
         /// <summary>
         /// /////////////////////////////////////////////////////////////////////
         /// </summary>
         private StackPanel _stkPanel;
         public StackPanel stkPanel
         {
-            get { return _stkPanel; }
+            get => _stkPanel;
             set { SetProperty(ref _stkPanel, value); }
         }
 
@@ -85,7 +52,7 @@ namespace AgileApp.Models
 
         public string Message
         {
-            get { return _message; }
+            get => _message;
             set { SetProperty(ref _message, value); }
         }
 
@@ -122,14 +89,14 @@ namespace AgileApp.Models
 
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void RaisePropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
+        //public event PropertyChangedEventHandler PropertyChanged;
+        //private void RaisePropertyChanged(string propertyName)
+        //{
+        //    if (PropertyChanged != null)
+        //    {
+        //        PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        //    }
+        //}
 
     }
 }

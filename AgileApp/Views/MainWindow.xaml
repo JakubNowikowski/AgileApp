@@ -33,7 +33,7 @@
                   Name="MemberListView" 
                   ItemsSource="{Binding Members}" 
                   SelectedItem="{Binding SelectedMember}"
-                  IsEnabled="{Binding LabelsVisibility2}">
+                  IsEnabled="{Binding ListViewVisibility}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="#CCCCCC" BorderThickness="0" >
@@ -91,7 +91,7 @@
             <Label Grid.Row="5" Grid.Column="1" Visibility="{Binding LabelsVisibility}" Content="{Binding SelectedMember.ExtraSkills, Mode=OneWay}"></Label>
 
             <TextBox Grid.Row="3" Grid.Column="1" Visibility="{Binding TextBoxesVisibility}" Text="{Binding NewDescription, Mode=TwoWay, NotifyOnSourceUpdated=True}"></TextBox>
-            <TextBox Grid.Row="4" Grid.Column="1" Visibility="{Binding TextBoxesVisibility}" Text="{Binding NewPosition, Mode=TwoWay, NotifyOnSourceUpdated=True}"></TextBox>
+            <ComboBox Grid.Row="4" Grid.Column="1" Visibility="{Binding TextBoxesVisibility}" ItemsSource="{Binding Positions}" SelectedItem="{Binding NewPosition, Mode=TwoWay}" Text="{Binding NewPosition, Mode=TwoWay, NotifyOnSourceUpdated=True}"></ComboBox>
             <TextBox Grid.Row="5" Grid.Column="1" Visibility="{Binding TextBoxesVisibility}" Text="{Binding NewExtraSkills, Mode=TwoWay, NotifyOnSourceUpdated=True}"></TextBox>
 
             <StackPanel Grid.Row="7">
@@ -132,9 +132,9 @@
 
         <ListView Background="Transparent" BorderThickness="0" Grid.Column="2" Margin="1,50,0,0" 
                   Name="ProductOwnerListView" 
-                  ItemsSource="{Binding Members}" 
+                  ItemsSource="{Binding ProductOwnerMembers}" 
                   SelectedItem="{Binding SelectedMember}"
-                  IsEnabled="{Binding LabelsVisibility2}">
+                  IsEnabled="{Binding ListViewVisibility}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="#CCCCCC" BorderThickness="0" >

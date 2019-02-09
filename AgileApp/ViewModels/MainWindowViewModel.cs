@@ -11,6 +11,7 @@ using AgileApp.Utility;
 using AgileApp.Messages;
 using AgileApp.Extensions;
 using System;
+using System.Collections.Generic;
 
 namespace AgileApp.ViewModels
 {
@@ -19,28 +20,19 @@ namespace AgileApp.ViewModels
     {
         private DialogService dialogService = new DialogService();
 
-        private bool CanDeleteMember(object obj)
-        {
-            if (SelectedMember != null)
-                return true;
-            return false;
-        }
-
-        private void DeleteMember(object member)
-        {
-            memberDataService.DeleteMember(selectedMember.MemberId);
-
-            Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private MemberDataService memberDataService;
-
+        #region Properties
         private ObservableCollection<Member> members;
         public ObservableCollection<Member> Members
         {
             get => members;
             set { members = value; RaisePropertyChanged("Members"); }
+        }
+
+        private ObservableCollection<Member> productOwnerMembers;
+        public ObservableCollection<Member> ProductOwnerMembers
+        {
+            get => productOwnerMembers;
+            set { productOwnerMembers = value; RaisePropertyChanged("Members"); }
         }
 
         private Member selectedMember;
@@ -56,6 +48,17 @@ namespace AgileApp.ViewModels
         {
             get => _newDescription;
             set { _newDescription = value; RaisePropertyChanged("NewDescription"); }
+        }
+
+        private List<string> _position;
+        public List<string> Positions
+        {
+            get => new List<string>(){"Product owner",
+            "Project manager",
+            "Scrum master",
+            "Architect",
+            "Dev team" };
+            set => _position = value;
         }
 
         private string _newPosition;
@@ -79,11 +82,11 @@ namespace AgileApp.ViewModels
             set { _labelsVisibility = value; RaisePropertyChanged("LabelsVisibility"); }
         }
 
-        private string _labelsVisibility2;
-        public string LabelsVisibility2
+        private string _listViewVisibility;
+        public string ListViewVisibility
         {
-            get => _labelsVisibility2;
-            set { _labelsVisibility2 = value; RaisePropertyChanged("LabelsVisibility2"); }
+            get => _listViewVisibility;
+            set { _listViewVisibility = value; RaisePropertyChanged("ListViewVisibility"); }
         }
 
         private string _textBoxesVisibility;
@@ -92,6 +95,24 @@ namespace AgileApp.ViewModels
             get => _textBoxesVisibility;
             set { _textBoxesVisibility = value; RaisePropertyChanged("TextBoxesVisibility"); }
         }
+        #endregion
+
+        private bool CanDeleteMember(object obj)
+        {
+            if (SelectedMember != null)
+                return true;
+            return false;
+        }
+
+        private void DeleteMember(object member)
+        {
+            memberDataService.DeleteMember(selectedMember.MemberId);
+
+            Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private MemberDataService memberDataService;
 
         public ICommand EditCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
@@ -118,7 +139,7 @@ namespace AgileApp.ViewModels
 
             TextBoxesVisibility = "Hidden";
             LabelsVisibility = "Visible";
-            LabelsVisibility2 = "True";
+            ListViewVisibility = "True";
             //selectedMember.MemberId = 1;
 
             Messenger.Default.Register<UpdateListMessage>(this, OnUpdateListMessageReceived);
@@ -158,7 +179,7 @@ namespace AgileApp.ViewModels
 
             TextBoxesVisibility = "Hidden";
             LabelsVisibility = "Visible";
-            LabelsVisibility2 = "True";
+            ListViewVisibility = "True";
             //Messenger.Default.Send<Member>(selectedMember);
         }
 
@@ -170,7 +191,7 @@ namespace AgileApp.ViewModels
 
             LabelsVisibility = "Hidden";
             TextBoxesVisibility = "Visible";
-            LabelsVisibility2 = "False";
+            ListViewVisibility = "False";
             //Messenger.Default.Send<Member>(selectedMember);
         }
 
