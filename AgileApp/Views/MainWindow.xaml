@@ -133,7 +133,7 @@
         <ListView Background="Transparent" BorderThickness="0" Grid.Column="2" Margin="1,50,0,0" 
                   Name="ProductOwnerListView" 
                   ItemsSource="{Binding ProductOwnerMembers}" 
-                  SelectedItem="{Binding SelectedMember}"
+                  SelectedItem="{Binding SelectedProductOwner}"
                   IsEnabled="{Binding ListViewVisibility}">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -170,7 +170,7 @@
             <!--Dynamic textblocks-->
         </StackPanel>
 
-        <Button Command="{Binding ClearStkpnlProjectManager}" Content="Clear" Grid.Column="3" Margin="0 20 0 0 " Width="40" Height="20" VerticalAlignment="Bottom"/>
+        <Button Command="{Binding ClearProductOwner}" Content="Clear" Grid.Column="2" Margin="34,0,34,10" Width="50" Height="20" VerticalAlignment="Bottom"/>
 
         <!--Scrum master-->
         <Label Grid.Column="4"  HorizontalAlignment="Center">

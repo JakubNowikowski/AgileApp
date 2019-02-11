@@ -15,32 +15,38 @@ using System.Collections.Generic;
 
 namespace AgileApp.ViewModels
 {
-    //class MainWindowViewModel : BindableBase
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         private DialogService dialogService = new DialogService();
 
-        #region Properties
         private ObservableCollection<Member> members;
+        private Member selectedMember;
+        private ObservableCollection<Member> productOwnerMembers;
+        private Member selectedProductOwner;
+
+        #region Properties
         public ObservableCollection<Member> Members
         {
             get => members;
             set { members = value; RaisePropertyChanged("Members"); }
         }
 
-        private ObservableCollection<Member> productOwnerMembers;
-        public ObservableCollection<Member> ProductOwnerMembers
-        {
-            get => productOwnerMembers;
-            set { productOwnerMembers = value; RaisePropertyChanged("Members"); }
-        }
-
-        private Member selectedMember;
-
         public Member SelectedMember
         {
             get => selectedMember;
             set { selectedMember = value; RaisePropertyChanged("SelectedMember"); }
+        }
+
+        public ObservableCollection<Member> ProductOwnerMembers
+        {
+            get => productOwnerMembers;
+            set { productOwnerMembers = value; RaisePropertyChanged("ProductOwnerMembers"); }
+        }
+
+        public Member SelectedProductOwner
+        {
+            get => selectedProductOwner;
+            set { selectedProductOwner = value; RaisePropertyChanged("SelectedProductOwner"); }
         }
 
         private string _newDescription;
@@ -53,15 +59,19 @@ namespace AgileApp.ViewModels
         private List<string> _position;
         public List<string> Positions
         {
-            get => new List<string>(){"Product owner",
+            get => new List<string>()
+            {
+            "None",
+            "Product owner",
             "Project manager",
             "Scrum master",
             "Architect",
-            "Dev team" };
+            "Dev team"
+            };
             set => _position = value;
         }
 
-        private string _newPosition;
+        private string _newPosition = "None";
         public string NewPosition
         {
             get => _newPosition;
@@ -111,6 +121,12 @@ namespace AgileApp.ViewModels
             Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
         }
 
+        private void ChangePositionToNone(object member)
+        {
+            memberDataService.UpdateMember(selectedProductOwner, NewDescription, "None", NewExtraSkills);
+            Messenger.Default.Send<UpdateListMessage>(new UpdateListMessage());
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private MemberDataService memberDataService;
 
@@ -119,6 +135,7 @@ namespace AgileApp.ViewModels
         public ICommand SaveCommand { get; set; }
         public ICommand AddCommand { get; set; }
         public ICommand OpenAddWindowCommand { get; set; }
+        public ICommand ClearProductOwner { get; set; }
 
         private void RaisePropertyChanged(string propertyName)
         {
@@ -130,17 +147,11 @@ namespace AgileApp.ViewModels
         {
             memberDataService = new MemberDataService();
             LoadData();
-
-            //NewDescription = selectedMember.Description;
-            //NewPosition = selectedMember.Position;
-            //NewExtraSkills = selectedMember.ExtraSkills;
-
             LoadCommands();
 
             TextBoxesVisibility = "Hidden";
             LabelsVisibility = "Visible";
             ListViewVisibility = "True";
-            //selectedMember.MemberId = 1;
 
             Messenger.Default.Register<UpdateListMessage>(this, OnUpdateListMessageReceived);
         }
@@ -150,7 +161,7 @@ namespace AgileApp.ViewModels
             EditCommand = new CustomCommand(EditMember, CanEditMember);
             DeleteCommand = new CustomCommand(DeleteMember, CanDeleteMember);
             SaveCommand = new CustomCommand(SaveMember, CanDeleteMember);
-            //AddCommand = new CustomCommand(AddMember, CanAddMember);
+            ClearProductOwner = new CustomCommand(ChangePositionToNone, CanDeleteMember);
             OpenAddWindowCommand = new CustomCommand(OpenAddWindow, CanAddMember);
 
         }
@@ -180,7 +191,6 @@ namespace AgileApp.ViewModels
             TextBoxesVisibility = "Hidden";
             LabelsVisibility = "Visible";
             ListViewVisibility = "True";
-            //Messenger.Default.Send<Member>(selectedMember);
         }
 
         private void EditMember(object obj)
@@ -192,7 +202,6 @@ namespace AgileApp.ViewModels
             LabelsVisibility = "Hidden";
             TextBoxesVisibility = "Visible";
             ListViewVisibility = "False";
-            //Messenger.Default.Send<Member>(selectedMember);
         }
 
         private bool CanEditMember(object obj)
@@ -202,6 +211,7 @@ namespace AgileApp.ViewModels
 
         private void LoadData()
         {
+            ProductOwnerMembers = memberDataService.GetMembersByPosition("Product owner").ToObservableCollection();
             Members = memberDataService.GetAllMembers().ToObservableCollection();
         }
     }

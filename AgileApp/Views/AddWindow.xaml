@@ -35,7 +35,6 @@
         <TextBox Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding NewMemberName, Mode=TwoWay}" ></TextBox>
         <TextBox Grid.Row="4" Grid.Column="1" Margin="5" Text="{Binding NewDescription, Mode=TwoWay}"></TextBox>
         <ComboBox Grid.Row="5" Grid.Column="1" Margin="5" ItemsSource="{Binding Positions}" SelectedItem="{Binding NewPosition, Mode=TwoWay}" Text="Select position"></ComboBox>
-        <!--<TextBox Grid.Row="5" Grid.Column="1" Margin="5" Text="{Binding NewPosition, Mode=TwoWay}"></TextBox>-->
         <TextBox Grid.Row="6" Grid.Column="1" Margin="5" Text="{Binding NewExtraSkills, Mode=TwoWay}"></TextBox>
         <Label Grid.Row="7" Content="{Binding NewLabel, Mode=TwoWay, NotifyOnSourceUpdated=True}"> </Label>
 

@@ -43,7 +43,7 @@ namespace AgileApp.ViewModels
             set { _newDescription = value; RaisePropertyChanged("NewDescription"); }
         }
 
-        private string _newPosition;
+        private string _newPosition = "None";
         public string NewPosition
         {
             get => _newPosition;
@@ -53,11 +53,15 @@ namespace AgileApp.ViewModels
         private List<string> _position;
         public List<string> Positions
         {
-            get => new List<string>(){"Product owner",
+            get => new List<string>()
+            {
+            "None",
+            "Product owner",
             "Project manager",
             "Scrum master",
             "Architect",
-            "Dev team" };
+            "Dev team"
+            };
             set => _position = value;
         }
 
@@ -74,7 +78,7 @@ namespace AgileApp.ViewModels
         }
 
         #endregion
-        
+
         public ICommand SaveCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
         public ICommand AddCommand { get; set; }

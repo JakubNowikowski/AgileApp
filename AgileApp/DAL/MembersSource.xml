@@ -3,8 +3,8 @@
   <Member>
     <ID>3</ID>
     <Name>Tom</Name>
-    <Description>Senior c# developer</Description>
-    <Position>Scrum master</Position>
+    <Description>Senior java developer</Description>
+    <Position>Product owner</Position>
     <ExtraSkills>machine vision</ExtraSkills>
   </Member>
   <Member>
@@ -17,15 +17,22 @@
   <Member>
     <ID>4</ID>
     <Name>Mike</Name>
-    <Description>Senior c# developer</Description>
-    <Position>Architect</Position>
+    <Description>Senior c++ developer</Description>
+    <Position>Product owner</Position>
     <ExtraSkills>machine vision</ExtraSkills>
   </Member>
   <Member>
-    <ID>5</ID>
-    <Name>bobo</Name>
+    <ID>6</ID>
+    <Name>pm</Name>
     <Description></Description>
-    <Position>Product owner</Position>
+    <Position>None</Position>
     <ExtraSkills></ExtraSkills>
+  </Member>
+  <Member>
+    <ID>7</ID>
+    <Name>pm</Name>
+    <Description />
+    <Position>Project manager</Position>
+    <ExtraSkills />
   </Member>
 </Members>
